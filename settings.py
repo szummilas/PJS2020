@@ -1,31 +1,33 @@
 import pygame
-pygame.font.init()
+import os
 
-# setting screen dimensions
-screen_width = 1200
-screen_height = 600
+# --- INITIALIZE PYGAME ---
+pygame.font.init()          # FONTS
+pygame.mixer.init()         # SOUND EFFECTS
+pygame.init()
 
-# defining basic colors
-white = (255, 255, 255)
-black = (0, 0, 0)
-blue = (0, 0, 180)
-light_blue = (40, 80, 250)
-red = (180, 0, 0)
-light_red = (255, 0, 0)
+# --- SETTINGS ---
+SCREEN_WIDTH = 1200
+SCREEN_HEIGHT = 600
+FPS = 30
+TITLE = "Platformer"
 
-# player behaviour settings
+# --- COLORS ---
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+BLUE = (0, 0, 180)
+LIGHT_BLUE = (40, 80, 250)
+RED = (180, 0, 0)
+LIGHT_RED = (255, 0, 0)
+YELLOW = (255, 255, 0)
+
+# --- PLAYER BEHAVIOUR SETTINGS ---
 gravity = 1
 velocity = 1
 acceleration = 0.5
 friction = -0.15
 
-# basic frames per second
-fps = 30
-
-# title of the game
-game_title = "Platformer"
-
-# defining fonts
-smallfont = pygame.font.SysFont("suruma", 25)
-medfont = pygame.font.SysFont("surma", 50)
-largefont = pygame.font.SysFont("surma", 80)
+# --- FONTS ---
+smallfont = pygame.font.Font(os.path.join('font', 'PressStart2P-Regular.ttf'), 10)
+medfont = pygame.font.Font(os.path.join('font', 'PressStart2P-Regular.ttf'), 30)
+largefont = pygame.font.Font(os.path.join('font', 'PressStart2P-Regular.ttf'), 40)
