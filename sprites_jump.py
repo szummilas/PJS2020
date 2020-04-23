@@ -10,9 +10,9 @@ class PlayerClass(pygame.sprite.Sprite):
         self.image = pygame.image.load(os.path.join('sprites', 'playersprite1.png')).convert()
         self.image_l = pygame.transform.flip(pygame.image.load(os.path.join('sprites', 'playersprite1.png')).convert(), True, False)
         self.rect = self.image.get_rect()
-        self.rect.center = (0.1 * screen_width, 0.8 * screen_height)
+        self.rect.center = (0.1 * SCREEN_WIDTH, 0.8 * SCREEN_HEIGHT)
         # position of player is calculated using a 2d vector
-        self.pos = vec(0.1 * screen_width, 0.8 * screen_height)
+        self.pos = vec(0.1 * SCREEN_WIDTH, 0.8 * SCREEN_HEIGHT)
         # player velocity
         self.vel = vec(0, 0)
         # player acceleration
@@ -20,7 +20,6 @@ class PlayerClass(pygame.sprite.Sprite):
 
         self.isJump = False
         self.jumpCount = 12
-
 
     def jump(self, isJump):
         self.rect.y += 1
@@ -42,9 +41,6 @@ class PlayerClass(pygame.sprite.Sprite):
                         self.isJump = False
                         self.jumpCount = 12
 
-
-
-
     def update(self):
         # gravity acceleration
         self.acc = vec(0, gravity)
@@ -65,7 +61,6 @@ class PlayerClass(pygame.sprite.Sprite):
         if not keys[pygame.K_SPACE]:
             self.jump(False)
 
-
         # apply friction to slow down player movement
         self.acc.x += self.vel.x * friction
 
@@ -74,8 +69,8 @@ class PlayerClass(pygame.sprite.Sprite):
         self.pos += self.vel + 0.5 * self.acc
 
         # screen boundaries
-        if self.pos.x > screen_width - 20:
-            self.pos.x = screen_width - 20
+        if self.pos.x > SCREEN_WIDTH - 20:
+            self.pos.x = SCREEN_WIDTH - 20
         if self.pos.x < 20:
             self.pos.x = 20
 
@@ -83,11 +78,12 @@ class PlayerClass(pygame.sprite.Sprite):
         self.rect.midbottom = self.pos
 
 
-class PlatformClass(pygame.sprite.Sprite):
+class Platform(pygame.sprite.Sprite):
     def __init__(self, x, y, width, height):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.Surface((width, height))
-        self.image = pygame.image.load(os.path.join('sprites', 'platformsprite.png')).convert()
+        self.image.fill(RED) 
+        # self.image = pygame.image.load(os.path.join('sprites', 'platformsprite.png')).convert()
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
