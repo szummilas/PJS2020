@@ -8,8 +8,11 @@ Po uzgodnieniu z prowadzącym, kontunuujemy projekt wspólnie.
 Stan gry na ten moment:
 -Menu z interaktywnymi przyciskami.
 -Poruszająca się postać gracza, może skakać
--Kolizja z platformami, po których porusza się gracz
+-Kolizja od góry z platformami, po których porusza się gracz
 
 
 TO DO:
+-Dopracowanie kolizji gracza z platformą. Uderzając od dołu, nie będzie mógł
+ dostać się na górę platformy. Niestety okazało się to dosyć skomplikowanym
+ zagadnieniem i nie zdążyliśmy tego naprawić, a należało wysyłać już raport.
 -Nowe poziomy
