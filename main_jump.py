@@ -67,13 +67,35 @@ class Game:
         self.screen.fill(BLACK)
         self.all_sprites.update()
 
-        if self.player.vel.y > 0:
-            # checking for player and platform collisions
-            collisions = pygame.sprite.spritecollide(self.player, self.platforms, False)
-            if collisions:
+        # check if we hit a wall or platform
+        hits = pygame.sprite.spritecollide(self.player, self.platforms, False)
 
-                self.player.pos.y = collisions[0].rect.top
-                self.player.vel.y = 0
+        # iterate over the hit (przymiotnik to przypadkiem nie bedzie hitted?
+        # nie mysle juz o tej godzinie) platforms
+        for platform in hits:
+            # falling:
+            if self.player.velocity.y > 0:
+                self.player.rect.bottom = platform.rect.top
+                self.player.velocity.y = 0
+            # jumping:
+            elif self.player.velocity.y < 0:
+                self.player.rect.top = platform.rect.bottom
+                # tu sobie mozesz zmienic wartosc na jakakolwiek dodatnia i wtedy bedzie
+                # zmieniac sie szybkosc spadania po jebnieciu platformy od spodu
+                self.player.velocity.y = 3
+
+            self.player.position.y = self.player.rect.bottom
+
+            # CZYTAJ:
+            # na podobnej zasadzie trzeba byloby w sumie zrobic blokowanie tych bokow
+            # platform
+            # ale jest 4 rano, wiec ja to ...., ide spac, wstane pewnie pozno,
+            # wiec jak masz jutro czas to pokmin to od bokow
+
+            # a i nie zmieniamy tej klasy na def game po prostu
+            # testowalem opcje z funkcja zamiast klasy
+            # i nie dziala to dobrze
+            # + ciezko sie wtedy polapac w chronologii kodu gry
 
     # in-game events
     def handle_events(self):
@@ -85,10 +107,10 @@ class Game:
                 self.running = False
                 pygame.quit()
                 quit()
-            # # jump when space pressed
-            # if event.type == pygame.KEYDOWN:
-            #     if event.key == pygame.K_SPACE:
-            #         self.player.isJump(True)
+
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    self.player.jump()
 
     # drawing objects
     def draw(self):

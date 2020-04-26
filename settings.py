@@ -5,6 +5,7 @@ import os
 pygame.font.init()          # FONTS
 pygame.mixer.init()         # SOUND EFFECTS
 pygame.init()
+vector = pygame.math.Vector2
 
 # --- SETTINGS ---
 SCREEN_WIDTH = 1200
@@ -24,8 +25,8 @@ YELLOW = (255, 255, 0)
 
 # --- PLAYER BEHAVIOUR SETTINGS ---
 gravity = 1
-velocity = 1
-acceleration = 0.5
+player_velocity = 1
+player_acceleration = 0.5
 friction = -0.15
 
 # --- FONTS ---

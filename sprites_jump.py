@@ -1,6 +1,5 @@
 import os
 from settings import *
-vec = pygame.math.Vector2
 
 
 class PlayerClass(pygame.sprite.Sprite):
@@ -9,70 +8,50 @@ class PlayerClass(pygame.sprite.Sprite):
         self.game = game
         self.image = pygame.image.load(os.path.join('sprites', 'playersprite1.png')).convert()
         self.rect = self.image.get_rect()
-        self.rect.center = (0.1 * SCREEN_WIDTH, 0.8 * SCREEN_HEIGHT)
+        self.rect.center = (SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+
         # position of player is calculated using a 2d vector
-        self.pos = vec(0.1 * SCREEN_WIDTH, 0.8 * SCREEN_HEIGHT)
+        self.position = vector(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
         # player velocity
-        self.vel = vec(0, 0)
+        self.velocity = vector(0, 0)
         # player acceleration
-        self.acc = vec(0, 0)
+        self.acceleration = vector(0, 0)
 
-        self.isJump = False
-        self.jumpCount = 12
-
-    def jump(self, isJump):
+    def jump(self):
         self.rect.y += 1
         collisions = pygame.sprite.spritecollide(self, self.game.platforms, False)
         self.rect.y -= 1
 
         if collisions:
-            if not self.isJump:
-                self.isJump = isJump
-            else:
-                if self.isJump:
-                    if self.jumpCount >= -12:
-                        neg = 1
-                        if self.jumpCount < 0:
-                            neg = -1
-                        self.vel.y -= self.jumpCount ** 2 * 0.1 * neg
-                        self.jumpCount -= 12
-                    else:
-                        self.isJump = False
-                        self.jumpCount = 12
+            self.velocity.y = -13
+
 
     def update(self):
         # gravity acceleration
-        self.acc = vec(0, gravity)
+        self.acceleration = vector(0, gravity)
 
         # player movement when user presses a key
         keys = pygame.key.get_pressed()
         if keys[pygame.K_a]:
-            self.acc.x = -velocity
+            self.acceleration.x = -player_velocity
         if keys[pygame.K_d]:
-            self.acc.x = velocity
-
-        # player jumping when space clicked
-        if keys[pygame.K_SPACE]:
-            self.jump(True)
-        # player not jumping when space not clicked
-        if not keys[pygame.K_SPACE]:
-            self.jump(False)
+            self.acceleration.x = player_velocity
 
         # apply friction to slow down player movement
-        self.acc.x += self.vel.x * friction
+        self.acceleration.x += self.velocity.x * friction
 
         # apply velocity
-        self.vel += self.acc
-        self.pos += self.vel + 0.5 * self.acc
+        self.velocity += self.acceleration
+        self.position += self.velocity + 0.5 * self.acceleration
 
         # screen boundaries
-        if self.pos.x > SCREEN_WIDTH - 20:
-            self.pos.x = SCREEN_WIDTH - 20
-        if self.pos.x < 20:
-            self.pos.x = 20
+        if self.position.x > SCREEN_WIDTH:
+            self.position.x = 0
+        if self.position.x < 0:
+            self.position.x = SCREEN_WIDTH
 
         # player position calculated from the middle bottom
-        self.rect.midbottom = self.pos
+        self.rect.midbottom = self.position
 
 
 class Platform(pygame.sprite.Sprite):
