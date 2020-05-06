@@ -72,48 +72,39 @@ class Game:
 
         # iterate over the hit platforms
         for platform in hits:
-            # falling:
 
-            # uderza w lewą stronę platformy
-            if self.player.velocity.y > 0 and self.player.velocity.x > 0:
-
-                self.player.rect.right = platform.rect.left
-                self.player.velocity.y = 3
-                self.player.velocity.x = 0
-
-            # uderza w prawą stronę platformy
-            if self.player.velocity.y > 0 and self.player.velocity.x < 0:
-
-                self.player.rect.left = platform.rect.right
-                self.player.velocity.y = 3
-                self.player.velocity.x = 0
+            # TUTAJ PRÓBOWALIŚMY ROZWIĄZAĆ UDERZANIE W PLATFORMĘ OD PRAWEJ/LEWEJ STRONY
+            # LECZ POWODOWAŁO TO BŁĘDY W PORUSZANIU SIĘ POSTACI
+            # # uderza w lewą stronę platformy
+            # if self.player.velocity.y > 0 and self.player.velocity.x > 0:
+            #
+            #     self.player.rect.right = platform.rect.left
+            #     self.player.velocity.y = 3
+            #     self.player.velocity.x = 0
+            #
+            # # uderza w prawą stronę platformy
+            # if self.player.velocity.y > 0 and self.player.velocity.x < 0:
+            #
+            #     self.player.rect.left = platform.rect.right
+            #     self.player.velocity.y = 3
+            #     self.player.velocity.x = 0
 
             # stoi na platformie
-            elif self.player.velocity.y > 0:
+            if self.player.velocity.y > 0:
 
                 self.player.rect.bottom = platform.rect.top
                 self.player.velocity.y = 0
-                print('dupa2')
-
+                print('2')
 
             # jumping:
             elif self.player.velocity.y < 0:
-                print('dupa3')
+                print('1')
 
                 self.player.rect.top = platform.rect.bottom
                 # falling velocity after hitting bottom of platform
                 self.player.velocity.y = 3
 
-
-
-
-
-
             self.player.position.y = self.player.rect.bottom
-
-            # CZYTAJ:
-            # na podobnej zasadzie trzeba byloby w sumie zrobic blokowanie tych bokow
-            # platform
 
     # in-game events
     def handle_events(self):
