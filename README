@@ -15,4 +15,6 @@ TO DO:
 -Dopracowanie kolizji gracza z platformą. Uderzając od dołu, nie będzie mógł
  dostać się na górę platformy. Niestety okazało się to dosyć skomplikowanym
  zagadnieniem i nie zdążyliśmy tego naprawić, a należało wysyłać już raport.
+ [ poniekąd poprawione, bo platformy są "solid blockami", lecz trzeba poprawić
+   "smoothness" ruchów postaci, wprowadzić do nich elementy fizyki ]
 -Nowe poziomy
