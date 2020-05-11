@@ -36,6 +36,7 @@ class PlayerClass(pygame.sprite.Sprite):
                 self.rect.bottom = block.rect.top
             elif self.movey < 0:
                 self.rect.top = block.rect.bottom
+                self.movey += 0.5
 
     # method to apply gravity
     def calc_gravity(self):
