@@ -29,6 +29,8 @@ player_velocity = 1
 player_acceleration = 0.5
 friction = -0.15
 
+plat_height = 50
+
 # --- FONTS ---
 smallfont = pygame.font.Font(os.path.join('font', 'PressStart2P-Regular.ttf'), 10)
 medfont = pygame.font.Font(os.path.join('font', 'PressStart2P-Regular.ttf'), 30)
