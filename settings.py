@@ -11,7 +11,7 @@ vector = pygame.math.Vector2
 SCREEN_WIDTH = 1200
 SCREEN_HEIGHT = 600
 RESOLUTION = [SCREEN_WIDTH, SCREEN_HEIGHT]
-FPS = 60
+FPS = 30
 TITLE = "Vigilant Pancake"
 
 # --- COLORS ---
@@ -28,8 +28,6 @@ gravity = 1
 player_velocity = 1
 player_acceleration = 0.5
 friction = -0.15
-
-plat_height = 50
 
 # --- FONTS ---
 smallfont = pygame.font.Font(os.path.join('font', 'PressStart2P-Regular.ttf'), 10)
