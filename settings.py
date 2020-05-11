@@ -11,7 +11,7 @@ vector = pygame.math.Vector2
 SCREEN_WIDTH = 1200
 SCREEN_HEIGHT = 600
 RESOLUTION = [SCREEN_WIDTH, SCREEN_HEIGHT]
-FPS = 30
+FPS = 60
 TITLE = "Vigilant Pancake"
 
 # --- COLORS ---
