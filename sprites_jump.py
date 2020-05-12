@@ -23,7 +23,7 @@ class PlayerClass(pygame.sprite.Sprite):
         self.rect.y -= 1
 
         if len(collisions) > 0 or self.rect.bottom >= SCREEN_HEIGHT:
-            self.velocity.y = -13
+            self.velocity.y = -10
 
     def update(self):
         self.calc_gravity()

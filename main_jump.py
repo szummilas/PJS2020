@@ -66,67 +66,16 @@ class Game:
         self.screen.fill(BLACK)
         self.all_sprites.update()
 
-        # # check if we hit a wall or platform
-        # hits = pygame.sprite.spritecollide(self.player, self.platforms, False)
-        #
-        # if hits:
-        #     print('PLAYER RECT LEFT: {0}'.format(self.player.position.x))
-        #     print('PLATFORM RECT RIGHT: {0}'.format(hits[0].rect.right))
-        #     print('PLAYER VEL X: {0}'.format(self.player.velocity.x))
-        #     print('PLAYER VEL Y: {0}'.format(self.player.velocity.y))
-        #     print(hits[0])
-        #
-        #     if self.player.velocity.y > 0:
-        #         self.player.position.y = hits[0].rect.top
-        #         self.player.velocity.y = 0
-        #         self.player.rect.midbottom = self.player.position
-        #
-        #     elif self.player.velocity.y < 0:
-        #         self.player.rect.top = hits[0].rect.bottom
-        #         self.player.velocity.y = 3
-        #
-        #     elif self.player.velocity.x > 0:
-        #         self.player.rect.right = hits[0].rect.left
+        # PRZESUWANIE SIE PLANSZY
+        if self.player.rect.right >= SCREEN_WIDTH - 200 and self.player.velocity.x > 0:
+            self.player.position.x -= abs(self.player.velocity.x)
+            for plat in self.platforms:
+                plat.rect.x -= abs(self.player.velocity.x)
 
-        # # PRZESUWANIE SIE PLANSZY
-        # if self.player.rect.left >= SCREEN_HEIGHT - 200:
-        #     self.player.position.x -= abs(self.player.velocity.x)
-        #     for plat in self.platforms:
-        #         plat.rect.x -= abs(self.player.velocity.x)
-        #
-        # if self.player.rect.right <= SCREEN_HEIGHT / 4:
-        #     self.player.position.x += abs(self.player.velocity.x)
-        #     for plat in self.platforms:
-        #         plat.rect.x += abs(self.player.velocity.x)
-
-
-        # iterate over the hit platforms
-        # for platform in hits:
-        #
-        #     # stoi na platformie
-        #     if self.player.velocity.y > 0:
-        #
-        #         self.player.rect.bottom = platform.rect.top
-        #         self.player.velocity.y = 0
-        #         print('2')
-        #         self.player.position.y = self.player.rect.bottom
-        #
-        #     # jumping:
-        #     elif self.player.velocity.y < 0:
-        #         print('1')
-        #
-        #         self.player.rect.top = platform.rect.bottom
-        #         # falling velocity after hitting bottom of platform
-        #         self.player.velocity.y = 3
-        #
-        #     elif self.player.rect.left >= SCREEN_HEIGHT - 200:
-        #          self.player.position.x -= abs(self.player.velocity.x)
-        #          for plat in self.platforms:
-        #              plat.rect.x -= abs(self.player.velocity.x)
-        #     if self.player.rect.right <= displayHeight / 4:
-        #         self.player.pos.x += abs(self.player.spd.x)
-        #         for plat in self.platforms:
-        #             plat.rect.x += abs(self.player.spd.x)
+        if self.player.rect.left <= SCREEN_WIDTH / 4 and self.player.velocity.x < 0:
+            self.player.position.x += abs(self.player.velocity.x)
+            for plat in self.platforms:
+                plat.rect.x += abs(self.player.velocity.x)
 
 
     # in-game events
