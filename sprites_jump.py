@@ -79,16 +79,16 @@ class PlayerClass(pygame.sprite.Sprite):
         else:
             self.velocity.y += 0.35
 
-        # see if we are on the ground
+        # check if player standing on the ground
         if self.rect.y >= SCREEN_HEIGHT - self.rect.height and self.velocity.y >= 0:
             self.velocity.y = 0
             self.rect.y = SCREEN_HEIGHT - self.rect.height
 
     def left(self):
-        self.velocity.x = -6
+        self.velocity.x = -player_velocity
 
     def right(self):
-        self.velocity.x = 6
+        self.velocity.x = player_velocity
 
     def stop(self):
         self.velocity.x = 0

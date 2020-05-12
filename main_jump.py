@@ -44,7 +44,7 @@ class Game:
         # creating platform objects and adding them to sprite groups
         self.left_wall = Platform(-250, 0, 270, SCREEN_HEIGHT)
         self.ground = Platform(0, SCREEN_HEIGHT - 20, 2000, 20)
-        self.test_platform = Platform(350, SCREEN_HEIGHT - 150, 150, 60)
+        self.test_platform = Platform(350, SCREEN_HEIGHT - 150, 150, 50)
         self.test_platform1 = Platform(600, SCREEN_HEIGHT - 40, 30, 40)
         self.all_sprites.add(self.ground, self.left_wall, self.test_platform, self.test_platform1)
         self.platforms.add(self.ground, self.left_wall, self.test_platform, self.test_platform1)

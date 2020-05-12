@@ -25,7 +25,7 @@ YELLOW = (255, 255, 0)
 
 # --- PLAYER BEHAVIOUR SETTINGS ---
 gravity = 1
-player_velocity = 1
+player_velocity = 6
 player_acceleration = 0.5
 friction = -0.15
 
