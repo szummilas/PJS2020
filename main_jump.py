@@ -69,7 +69,7 @@ class Game:
         self.screen.fill(BLACK)
         self.all_sprites.update()
 
-        # PRZESUWANIE SIE PLANSZY
+        # screen movement when close to the edge
         if self.player.rect.right >= SCREEN_WIDTH - 200 and self.player.velocity.x > 0:
             self.player.rect.right = SCREEN_WIDTH - 200
             for plat in self.platforms:
@@ -79,7 +79,6 @@ class Game:
             self.player.rect.left = 200
             for plat in self.platforms:
                 plat.rect.x += abs(self.player.velocity.x)
-
 
     # in-game events
     def handle_events(self):
@@ -92,6 +91,7 @@ class Game:
                 pygame.quit()
                 quit()
 
+            # player movement events
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
                     self.player.jump()
@@ -108,10 +108,9 @@ class Game:
 
     # drawing objects
     def draw(self):
-        # # background color of the window
-        # self.screen.fill(BLACK)
         # drawing sprites group
         self.all_sprites.draw(self.screen)
+
         # updates contents of the screen
         pygame.display.update()
 
@@ -238,7 +237,7 @@ class Game:
         self.screen.blit(textSurf, textRect)
 
     # displaying text to the center of screen
-    def message_to_screen(self, msg, color, y_displace = 0, size="small"):
+    def message_to_screen(self, msg, color, y_displace=0, size="small"):
         textSurf, textRect = self.text_objects(msg, color, size)
         textRect.center = (SCREEN_WIDTH / 2), (SCREEN_HEIGHT / 2 + y_displace)
         self.screen.blit(textSurf, textRect)
@@ -265,7 +264,6 @@ class Level01(Level):
 
     def __init__(self, player):
         Level.__init__(self, player)
-
 
 
 # --- CREATE GAME OBJECT ---
