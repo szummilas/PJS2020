@@ -6,9 +6,13 @@ Progress 24.04.2020
 Po uzgodnieniu z prowadzącym, kontunuujemy projekt wspólnie. 
 
 Stan gry na ten moment:
+[ 24.04.2020 ]
 -Menu z interaktywnymi przyciskami.
 -Poruszająca się postać gracza, może skakać
 -Kolizja od góry z platformami, po których porusza się gracz
+[ 12.05.2020 ]
+- Kolizje z platformami ze wszystkich stron
+- Przesuwanie się planszy
 
 
 TO DO:
