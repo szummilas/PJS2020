@@ -42,9 +42,12 @@ class Game:
         self.all_sprites.add(self.player)
 
         # creating platform objects and adding them to sprite groups
-        self.test_platform = Platform(350, SCREEN_HEIGHT - 130, 150, 60)
-        self.all_sprites.add(self.test_platform)
-        self.platforms.add(self.test_platform)
+        self.left_wall = Platform(-250, 0, 270, SCREEN_HEIGHT)
+        self.ground = Platform(0, SCREEN_HEIGHT - 20, 2000, 20)
+        self.test_platform = Platform(350, SCREEN_HEIGHT - 150, 150, 60)
+        self.test_platform1 = Platform(600, SCREEN_HEIGHT - 40, 30, 40)
+        self.all_sprites.add(self.ground, self.left_wall, self.test_platform, self.test_platform1)
+        self.platforms.add(self.ground, self.left_wall, self.test_platform, self.test_platform1)
 
         self.run_game()
 
@@ -68,12 +71,12 @@ class Game:
 
         # PRZESUWANIE SIE PLANSZY
         if self.player.rect.right >= SCREEN_WIDTH - 200 and self.player.velocity.x > 0:
-            self.player.position.x -= abs(self.player.velocity.x)
+            self.player.rect.right = SCREEN_WIDTH - 200
             for plat in self.platforms:
                 plat.rect.x -= abs(self.player.velocity.x)
 
-        if self.player.rect.left <= SCREEN_WIDTH / 4 and self.player.velocity.x < 0:
-            self.player.position.x += abs(self.player.velocity.x)
+        if self.player.rect.left <= 200 and self.player.velocity.x < 0:
+            self.player.rect.left = 200
             for plat in self.platforms:
                 plat.rect.x += abs(self.player.velocity.x)
 

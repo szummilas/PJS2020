@@ -1,4 +1,3 @@
-import os
 from settings import *
 
 
@@ -38,6 +37,7 @@ class PlayerClass(pygame.sprite.Sprite):
                 self.rect.left = plat.rect.right
 
         self.rect.y += self.velocity.y
+
         collisions_list = pygame.sprite.spritecollide(self, self.game.platforms, False)
         for plat in collisions_list:
             if self.velocity.y > 0:
