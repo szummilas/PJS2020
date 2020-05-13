@@ -1,4 +1,4 @@
-from sprites_jump import *
+from sprites import *
 
 
 # --- TIMER ---
@@ -41,6 +41,25 @@ class Game:
 
         self.all_sprites.add(self.player)
 
+
+
+        self.level1()
+
+
+        if self.player.rect.right == 1000:
+            print('dupa')
+            self.player.rect.right = 300
+            # self.player.rect.top = 100
+            self.all_sprites.remove(self.ground, self.left_wall, self.test_platform, self.test_platform1)
+            self.platforms.remove(self.ground, self.left_wall, self.test_platform, self.test_platform1)
+
+            self.level2()
+
+
+        self.run_game()
+
+    def level1(self):
+
         # creating platform objects and adding them to sprite groups
         self.left_wall = Platform(-250, 0, 270, SCREEN_HEIGHT)
         self.ground = Platform(0, SCREEN_HEIGHT - 20, 2000, 20)
@@ -49,7 +68,14 @@ class Game:
         self.all_sprites.add(self.ground, self.left_wall, self.test_platform, self.test_platform1)
         self.platforms.add(self.ground, self.left_wall, self.test_platform, self.test_platform1)
 
-        self.run_game()
+    def level2(self):
+
+        self.left_wall = Platform(-250, 0, 270, SCREEN_HEIGHT)
+        self.ground = Platform(0, SCREEN_HEIGHT - 20, 2000, 20)
+
+        self.all_sprites.add(self.ground, self.left_wall)
+        self.platforms.add(self.ground, self.left_wall)
+
 
     # main game loop
     def run_game(self):
