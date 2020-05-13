@@ -27,6 +27,8 @@ class Game:
         self.running = True
         # devs
         self.devs = False
+        # lvl2 init
+        self.chujdupaikamienikupa = False
 
         self.player = PlayerClass(self)
 
@@ -66,6 +68,11 @@ class Game:
         if self.devs == True:
             self.write(100, 100)
 
+        if self.player.rect.y >= 235:
+            self.chujdupaikamienikupa = False
+        elif self.player.rect.y < 235:
+            self.chujdupaikamienikupa = True
+
         self.all_sprites.update()
 
         # screen movement when close to the edge
@@ -80,7 +87,7 @@ class Game:
                 plat.rect.x += abs(self.player.velocity.x)
 
         # level 2 initialization
-        if self.player.rect.right >= 1000 and self.player.rect.bottom == SCREEN_HEIGHT-300:
+        if self.player.rect.right >= 1000 and self.chujdupaikamienikupa == True:
             self.player.rect.right = 300
 
             # deleting level 1 platforms
@@ -284,6 +291,7 @@ class Game:
         self.screen.blit(smallfont.render('velocity y: {0}'.format(self.player.velocity.y), True, WHITE), (x, y + 15))
         self.screen.blit(smallfont.render('position x: {0}'.format(self.player.rect.x), True, WHITE), (x, y + 30))
         self.screen.blit(smallfont.render('position y: {0}'.format(self.player.rect.y), True, WHITE), (x, y + 45))
+        self.screen.blit(smallfont.render('True/False: {0}'.format(self.chujdupaikamienikupa), True, WHITE), (x, y + 60))
 
 
 # --- LEVEL ---
