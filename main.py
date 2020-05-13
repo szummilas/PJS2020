@@ -28,7 +28,6 @@ class Game:
         # devs
         self.devs = False
 
-
         self.player = PlayerClass(self)
 
     # start new game
@@ -38,44 +37,12 @@ class Game:
         self.level = Level.__init__(self, self.player)
         # grouping all sprites
         self.all_sprites = pygame.sprite.Group()
-        # plarforms group
+        # platforms group
         self.platforms = pygame.sprite.Group()
-        # creating player object and adding to sprite group
-
+        # adding player to sprite group
         self.all_sprites.add(self.player)
 
         self.level1()
-
-
-        if self.player.rect.right == 1000:
-            print('dupa')
-            self.player.rect.right = 300
-            # self.player.rect.top = 100
-            self.all_sprites.remove(self.ground, self.left_wall, self.test_platform, self.test_platform1)
-            self.platforms.remove(self.ground, self.left_wall, self.test_platform, self.test_platform1)
-
-            self.level2()
-
-
-        self.run_game()
-
-    def level1(self):
-
-        # creating platform objects and adding them to sprite groups
-        self.left_wall = Platform(-250, 0, 270, SCREEN_HEIGHT)
-        self.ground = Platform(0, SCREEN_HEIGHT - 20, 2000, 20)
-        self.test_platform = Platform(350, SCREEN_HEIGHT - 150, 150, 50)
-        self.test_platform1 = Platform(600, SCREEN_HEIGHT - 40, 30, 40)
-        self.all_sprites.add(self.ground, self.left_wall, self.test_platform, self.test_platform1)
-        self.platforms.add(self.ground, self.left_wall, self.test_platform, self.test_platform1)
-
-    def level2(self):
-
-        self.left_wall = Platform(-250, 0, 270, SCREEN_HEIGHT)
-        self.ground = Platform(0, SCREEN_HEIGHT - 20, 2000, 20)
-
-        self.all_sprites.add(self.ground, self.left_wall)
-        self.platforms.add(self.ground, self.left_wall)
 
         self.run_game()
 
@@ -111,6 +78,16 @@ class Game:
             self.player.rect.left = 200
             for plat in self.platforms:
                 plat.rect.x += abs(self.player.velocity.x)
+
+        # level 2 initialization
+        if self.player.rect.right >= 1000 and self.player.rect.bottom == SCREEN_HEIGHT-300:
+            self.player.rect.right = 300
+
+            # deleting level 1 platforms
+            self.all_sprites.remove(self.ground, self.left_wall, self.test_platform2, self.test_platform, self.test_platform1)
+            self.platforms.remove(self.ground, self.left_wall, self.test_platform2, self.test_platform, self.test_platform1)
+
+            self.level2()
 
     # in-game events
     def handle_events(self):
@@ -151,6 +128,27 @@ class Game:
 
         # updates contents of the screen
         pygame.display.update()
+
+    def level1(self):
+
+        # creating platform objects and adding them to sprite groups
+        self.left_wall = Platform(-250, 0, 270, SCREEN_HEIGHT)
+        self.ground = Platform(0, SCREEN_HEIGHT - 20, 2000, 20)
+        self.test_platform = Platform(350, SCREEN_HEIGHT - 150, 150, 50)
+        self.test_platform1 = Platform(600, SCREEN_HEIGHT - 40, 30, 40)
+        self.test_platform2 = Platform(700, SCREEN_HEIGHT - 300, 300, 50)
+        self.all_sprites.add(self.ground, self.left_wall, self.test_platform2, self.test_platform, self.test_platform1)
+        self.platforms.add(self.ground, self.left_wall, self.test_platform2, self.test_platform, self.test_platform1)
+
+    def level2(self):
+
+        # move player to starting position
+        self.left_wall = Platform(-250, 0, 270, SCREEN_HEIGHT)
+        self.ground = Platform(0, SCREEN_HEIGHT - 20, 2000, 20)
+
+        # level 2 platforms
+        self.all_sprites.add(self.ground, self.left_wall)
+        self.platforms.add(self.ground, self.left_wall)
 
     # start game screen
     def new_game_menu(self, new_game=True):
