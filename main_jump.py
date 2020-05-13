@@ -25,6 +25,9 @@ class Game:
         self.clock = pygame.time.Clock()
         # is game running
         self.running = True
+        # devs
+        self.devs = False
+
 
         self.player = PlayerClass(self)
 
@@ -67,6 +70,10 @@ class Game:
     # updating game state
     def update(self):
         self.screen.fill(BLACK)
+
+        if self.devs == True:
+            self.write(100, 100)
+
         self.all_sprites.update()
 
         # screen movement when close to the edge
@@ -99,12 +106,18 @@ class Game:
                     self.player.left()
                 if event.key == pygame.K_d:
                     self.player.right()
+                if event.key == pygame.K_k:
+                    if self.devs == True:
+                        self.devs = False
+                    elif self.devs == False:
+                        self.devs = True
 
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_a and self.player.velocity.x < 0:
                     self.player.stop()
                 if event.key == pygame.K_d and self.player.velocity.x > 0:
                     self.player.stop()
+
 
     # drawing objects
     def draw(self):
@@ -241,6 +254,10 @@ class Game:
         textSurf, textRect = self.text_objects(msg, color, size)
         textRect.center = (SCREEN_WIDTH / 2), (SCREEN_HEIGHT / 2 + y_displace)
         self.screen.blit(textSurf, textRect)
+
+    # developer tools
+    def write(self, x, y):
+        self.screen.blit(smallfont.render('velocity x: {0}'.format(self.player.velocity.x), True, WHITE), (x, y))
 
 
 # --- LEVEL ---
