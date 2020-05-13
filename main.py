@@ -80,7 +80,7 @@ class Game:
                 plat.rect.x += abs(self.player.velocity.x)
 
         # level 2 initialization
-        if self.player.rect.right >= 1000 and self.player.rect.bottom == SCREEN_HEIGHT-300:
+        if self.player.rect.right == self.test_platform2.rect.x + 180 and self.player.rect.bottom == self.test_platform2.rect.top:
             self.player.rect.right = 300
 
             # deleting level 1 platforms
@@ -284,6 +284,7 @@ class Game:
         self.screen.blit(smallfont.render('velocity y: {0}'.format(self.player.velocity.y), True, WHITE), (x, y + 15))
         self.screen.blit(smallfont.render('position x: {0}'.format(self.player.rect.x), True, WHITE), (x, y + 30))
         self.screen.blit(smallfont.render('position y: {0}'.format(self.player.rect.y), True, WHITE), (x, y + 45))
+        self.screen.blit(smallfont.render('position x: {0}'.format(self.test_platform2.rect.x), True, WHITE), (x, y + 75))
 
 
 # --- LEVEL ---
