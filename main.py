@@ -25,6 +25,9 @@ class Game:
         self.clock = pygame.time.Clock()
         # is game running
         self.running = True
+        # devs
+        self.devs = False
+
 
         self.player = PlayerClass(self)
 
@@ -40,8 +43,6 @@ class Game:
         # creating player object and adding to sprite group
 
         self.all_sprites.add(self.player)
-
-
 
         self.level1()
 
@@ -76,6 +77,7 @@ class Game:
         self.all_sprites.add(self.ground, self.left_wall)
         self.platforms.add(self.ground, self.left_wall)
 
+        self.run_game()
 
     # main game loop
     def run_game(self):
@@ -93,6 +95,10 @@ class Game:
     # updating game state
     def update(self):
         self.screen.fill(BLACK)
+
+        if self.devs == True:
+            self.write(100, 100)
+
         self.all_sprites.update()
 
         # screen movement when close to the edge
@@ -125,6 +131,12 @@ class Game:
                     self.player.left()
                 if event.key == pygame.K_d:
                     self.player.right()
+
+                if event.key == pygame.K_k:
+                    if self.devs == True:
+                        self.devs = False
+                    elif self.devs == False:
+                        self.devs = True
 
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_a and self.player.velocity.x < 0:
@@ -267,6 +279,13 @@ class Game:
         textSurf, textRect = self.text_objects(msg, color, size)
         textRect.center = (SCREEN_WIDTH / 2), (SCREEN_HEIGHT / 2 + y_displace)
         self.screen.blit(textSurf, textRect)
+
+    # developer tools
+    def write(self, x, y):
+        self.screen.blit(smallfont.render('velocity x: {0}'.format(self.player.velocity.x), True, WHITE), (x, y))
+        self.screen.blit(smallfont.render('velocity y: {0}'.format(self.player.velocity.y), True, WHITE), (x, y + 15))
+        self.screen.blit(smallfont.render('position x: {0}'.format(self.player.rect.x), True, WHITE), (x, y + 30))
+        self.screen.blit(smallfont.render('position y: {0}'.format(self.player.rect.y), True, WHITE), (x, y + 45))
 
 
 # --- LEVEL ---
