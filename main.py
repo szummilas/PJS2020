@@ -1,4 +1,4 @@
-from sprites_jump import *
+from sprites import *
 
 
 # --- TIMER ---
@@ -27,7 +27,6 @@ class Game:
         self.running = True
         # devs
         self.devs = False
-
 
         self.player = PlayerClass(self)
 
@@ -258,7 +257,9 @@ class Game:
     # developer tools
     def write(self, x, y):
         self.screen.blit(smallfont.render('velocity x: {0}'.format(self.player.velocity.x), True, WHITE), (x, y))
-
+        self.screen.blit(smallfont.render('velocity y: {0}'.format(self.player.velocity.y), True, WHITE), (x, y + 15))
+        self.screen.blit(smallfont.render('position x: {0}'.format(self.player.rect.x), True, WHITE), (x, y + 30))
+        self.screen.blit(smallfont.render('position y: {0}'.format(self.player.rect.y), True, WHITE), (x, y + 45))
 
 # --- LEVEL ---
 class Level(Game):
