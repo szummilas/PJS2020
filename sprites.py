@@ -47,32 +47,6 @@ class PlayerClass(pygame.sprite.Sprite):
 
             self.velocity.y = 0
 
-        # # gravity acceleration
-        # self.acceleration = vector(0, gravity)
-        #
-        # # player movement when user presses a key
-        # keys = pygame.key.get_pressed()
-        # if keys[pygame.K_a]:
-        #     self.acceleration.x = -player_velocity
-        # if keys[pygame.K_d]:
-        #     self.acceleration.x = player_velocity
-        #
-        # # apply friction to slow down player movement
-        # self.acceleration.x += self.velocity.x * friction
-        #
-        # # apply velocity
-        # self.velocity += self.acceleration
-        # self.position += self.velocity + 0.5 * self.acceleration
-        #
-        # # screen boundaries
-        # if self.position.x > SCREEN_WIDTH:
-        #     self.position.x = 0
-        # if self.position.x < 0:
-        #     self.position.x = SCREEN_WIDTH
-        #
-        # # player position calculated from the middle bottom
-        # self.rect.midbottom = self.position
-
     def calc_gravity(self):
         if self.velocity.y == 0:
             self.velocity.y = 1

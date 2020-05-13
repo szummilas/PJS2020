@@ -28,6 +28,7 @@ class Game:
         # devs
         self.devs = False
 
+
         self.player = PlayerClass(self)
 
     # start new game
@@ -43,6 +44,23 @@ class Game:
 
         self.all_sprites.add(self.player)
 
+        self.level1()
+
+
+        if self.player.rect.right == 1000:
+            print('dupa')
+            self.player.rect.right = 300
+            # self.player.rect.top = 100
+            self.all_sprites.remove(self.ground, self.left_wall, self.test_platform, self.test_platform1)
+            self.platforms.remove(self.ground, self.left_wall, self.test_platform, self.test_platform1)
+
+            self.level2()
+
+
+        self.run_game()
+
+    def level1(self):
+
         # creating platform objects and adding them to sprite groups
         self.left_wall = Platform(-250, 0, 270, SCREEN_HEIGHT)
         self.ground = Platform(0, SCREEN_HEIGHT - 20, 2000, 20)
@@ -50,6 +68,14 @@ class Game:
         self.test_platform1 = Platform(600, SCREEN_HEIGHT - 40, 30, 40)
         self.all_sprites.add(self.ground, self.left_wall, self.test_platform, self.test_platform1)
         self.platforms.add(self.ground, self.left_wall, self.test_platform, self.test_platform1)
+
+    def level2(self):
+
+        self.left_wall = Platform(-250, 0, 270, SCREEN_HEIGHT)
+        self.ground = Platform(0, SCREEN_HEIGHT - 20, 2000, 20)
+
+        self.all_sprites.add(self.ground, self.left_wall)
+        self.platforms.add(self.ground, self.left_wall)
 
         self.run_game()
 
@@ -105,6 +131,7 @@ class Game:
                     self.player.left()
                 if event.key == pygame.K_d:
                     self.player.right()
+
                 if event.key == pygame.K_k:
                     if self.devs == True:
                         self.devs = False
@@ -116,7 +143,6 @@ class Game:
                     self.player.stop()
                 if event.key == pygame.K_d and self.player.velocity.x > 0:
                     self.player.stop()
-
 
     # drawing objects
     def draw(self):
@@ -260,6 +286,7 @@ class Game:
         self.screen.blit(smallfont.render('velocity y: {0}'.format(self.player.velocity.y), True, WHITE), (x, y + 15))
         self.screen.blit(smallfont.render('position x: {0}'.format(self.player.rect.x), True, WHITE), (x, y + 30))
         self.screen.blit(smallfont.render('position y: {0}'.format(self.player.rect.y), True, WHITE), (x, y + 45))
+
 
 # --- LEVEL ---
 class Level(Game):
