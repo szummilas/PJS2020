@@ -34,7 +34,7 @@ class Game:
     def new_game(self):
 
         # tutaj nie mam pojecia czemu podkresla self ¯\_(ツ)_/¯
-        self.level = Level.__init__(self, self.player)
+        # self.level = Level.__init__(self, self.player)
         # grouping all sprites
         self.all_sprites = pygame.sprite.Group()
         # platforms group
@@ -48,6 +48,7 @@ class Game:
 
     # main game loop
     def run_game(self):
+
         self.playing = True
 
         while self.playing:
@@ -61,9 +62,10 @@ class Game:
 
     # updating game state
     def update(self):
+
         self.screen.fill(BLACK)
 
-        if self.devs == True:
+        if self.devs:
             self.write(100, 100)
 
         self.all_sprites.update()
@@ -79,18 +81,21 @@ class Game:
             for plat in self.platforms:
                 plat.rect.x += abs(self.player.velocity.x)
 
-        # level 2 initialization
-        if self.player.rect.right == self.test_platform2.rect.x + 180 and self.player.rect.bottom == self.test_platform2.rect.top:
+        # go to level 2 when blue square touched
+        if self.player.rect.right == self.KONIEC.rect.left and self.player.rect.bottom == self.KONIEC.rect.bottom:
             self.player.rect.right = 300
 
             # deleting level 1 platforms
-            self.all_sprites.remove(self.ground, self.left_wall, self.test_platform2, self.test_platform, self.test_platform1)
-            self.platforms.remove(self.ground, self.left_wall, self.test_platform2, self.test_platform, self.test_platform1)
+            self.all_sprites.remove(self.ground, self.left_wall, self.test_platform2, self.test_platform,
+                                    self.test_platform1, self.KONIEC)
+            self.platforms.remove(self.ground, self.left_wall, self.test_platform2, self.test_platform,
+                                  self.test_platform1, self.KONIEC)
 
             self.level2()
 
     # in-game events
     def handle_events(self):
+
         for event in pygame.event.get():
             # when user clicks x button, quit
             if event.type == pygame.QUIT:
@@ -100,8 +105,10 @@ class Game:
                 pygame.quit()
                 quit()
 
-            # player movement events
+            # keyboard events
             if event.type == pygame.KEYDOWN:
+
+                # player movement events
                 if event.key == pygame.K_SPACE:
                     self.player.jump()
                 if event.key == pygame.K_a:
@@ -109,11 +116,18 @@ class Game:
                 if event.key == pygame.K_d:
                     self.player.right()
 
+                # coordinates display
                 if event.key == pygame.K_k:
-                    if self.devs == True:
+                    if self.devs:
                         self.devs = False
-                    elif self.devs == False:
+                    elif not self.devs:
                         self.devs = True
+
+                # exit when esc clicked
+                if event.key == pygame.K_ESCAPE:
+                    self.running = False
+                    pygame.quit()
+                    quit()
 
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_a and self.player.velocity.x < 0:
@@ -121,8 +135,9 @@ class Game:
                 if event.key == pygame.K_d and self.player.velocity.x > 0:
                     self.player.stop()
 
-    # drawing objects
+    # drawing sprites
     def draw(self):
+
         # drawing sprites group
         self.all_sprites.draw(self.screen)
 
@@ -137,16 +152,19 @@ class Game:
         self.test_platform = Platform(350, SCREEN_HEIGHT - 150, 150, 50)
         self.test_platform1 = Platform(600, SCREEN_HEIGHT - 40, 30, 40)
         self.test_platform2 = Platform(700, SCREEN_HEIGHT - 300, 300, 50)
-        self.all_sprites.add(self.ground, self.left_wall, self.test_platform2, self.test_platform, self.test_platform1)
-        self.platforms.add(self.ground, self.left_wall, self.test_platform2, self.test_platform, self.test_platform1)
+        self.KONIEC = EndPlatform(self.test_platform2.rect.right - 20, self.test_platform2.rect.top - 10, 10, 10)
+
+        self.all_sprites.add(self.ground, self.left_wall, self.test_platform2, self.test_platform,
+                             self.test_platform1, self.KONIEC)
+        self.platforms.add(self.ground, self.left_wall, self.test_platform2, self.test_platform,
+                           self.test_platform1, self.KONIEC)
 
     def level2(self):
 
-        # move player to starting position
+        # create new level
         self.left_wall = Platform(-250, 0, 270, SCREEN_HEIGHT)
         self.ground = Platform(0, SCREEN_HEIGHT - 20, 2000, 20)
 
-        # level 2 platforms
         self.all_sprites.add(self.ground, self.left_wall)
         self.platforms.add(self.ground, self.left_wall)
 
@@ -257,6 +275,7 @@ class Game:
 
     # defining text size function
     def text_objects(self, text, color, size):
+        global textSurface
         if size == "small":
             textSurface = smallfont.render(text, True, color)
         elif size == "med":
@@ -284,30 +303,30 @@ class Game:
         self.screen.blit(smallfont.render('velocity y: {0}'.format(self.player.velocity.y), True, WHITE), (x, y + 15))
         self.screen.blit(smallfont.render('position x: {0}'.format(self.player.rect.x), True, WHITE), (x, y + 30))
         self.screen.blit(smallfont.render('position y: {0}'.format(self.player.rect.y), True, WHITE), (x, y + 45))
-        self.screen.blit(smallfont.render('position x: {0}'.format(self.test_platform2.rect.x), True, WHITE), (x, y + 75))
+        self.screen.blit(smallfont.render('position x: {0}'.format(self.KONIEC.rect.x), True, WHITE), (x, y + 75))
 
 
-# --- LEVEL ---
-class Level(Game):
-
-    # 'player' refers to object created in class Game
-    def __init__(self, player):
-        Game.__init__(self)
-        self.platform_list = pygame.sprite.Group()
-        self.player = player
-
-    def update(self):
-        self.platform_list.update()
-
-    def draw(self):
-        self.screen.fill(BLACK)
-        self.platform_list.draw(self.screen)
-
-
-class Level01(Level):
-
-    def __init__(self, player):
-        Level.__init__(self, player)
+# # --- LEVEL ---
+# class Level(Game):
+#
+#     # 'player' refers to object created in class Game
+#     def __init__(self, player):
+#         Game.__init__(self)
+#         self.platform_list = pygame.sprite.Group()
+#         self.player = player
+#
+#     def update(self):
+#         self.platform_list.update()
+#
+#     def draw(self):
+#         self.screen.fill(BLACK)
+#         self.platform_list.draw(self.screen)
+#
+#
+# class Level01(Level):
+#
+#     def __init__(self, player):
+#         Level.__init__(self, player)
 
 
 # --- CREATE GAME OBJECT ---

@@ -17,6 +17,7 @@ class PlayerClass(pygame.sprite.Sprite):
         self.acceleration = vector(0, 0)
 
     def jump(self):
+
         self.rect.y += 1
         collisions = pygame.sprite.spritecollide(self, self.game.platforms, False)
         self.rect.y -= 1
@@ -25,10 +26,12 @@ class PlayerClass(pygame.sprite.Sprite):
             self.velocity.y = -10
 
     def update(self):
+
         self.calc_gravity()
 
         self.rect.x += self.velocity.x
 
+        # checking vertical collisions
         collisions_list = pygame.sprite.spritecollide(self, self.game.platforms, False)
         for plat in collisions_list:
             if self.velocity.x > 0:
@@ -38,6 +41,7 @@ class PlayerClass(pygame.sprite.Sprite):
 
         self.rect.y += self.velocity.y
 
+        # checking horizontal collisions
         collisions_list = pygame.sprite.spritecollide(self, self.game.platforms, False)
         for plat in collisions_list:
             if self.velocity.y > 0:
@@ -48,6 +52,7 @@ class PlayerClass(pygame.sprite.Sprite):
             self.velocity.y = 0
 
     def calc_gravity(self):
+
         if self.velocity.y == 0:
             self.velocity.y = 1
         else:
@@ -58,6 +63,7 @@ class PlayerClass(pygame.sprite.Sprite):
             self.velocity.y = 0
             self.rect.y = SCREEN_HEIGHT - self.rect.height
 
+    # movement methods
     def left(self):
         self.velocity.x = -player_velocity
 
@@ -67,6 +73,7 @@ class PlayerClass(pygame.sprite.Sprite):
     def stop(self):
         self.velocity.x = 0
 
+# base level building objects
 class Platform(pygame.sprite.Sprite):
     def __init__(self, x, y, width, height):
         pygame.sprite.Sprite.__init__(self)
@@ -75,3 +82,9 @@ class Platform(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
+
+# when player touches EndPlatform, proceed to next level
+class EndPlatform(Platform):
+    def __init__(self, x, y, width, height):
+        super(EndPlatform, self).__init__(x, y, width, height)
+        self.image.fill(BLUE)
