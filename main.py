@@ -82,7 +82,7 @@ class Game:
                 plat.rect.x += abs(self.player.velocity.x)
 
         # go to level 2 when blue square touched
-        if self.player.rect.right == self.KONIEC.rect.left and self.player.rect.bottom == self.KONIEC.rect.bottom:
+        if self.player.rect.right >= self.KONIEC.rect.left and self.player.rect.bottom <= self.KONIEC.rect.bottom:
             self.player.rect.right = 300
 
             # deleting level 1 platforms
