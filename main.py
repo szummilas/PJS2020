@@ -87,10 +87,10 @@ class Game:
             self.player.rect.bottom = SCREEN_HEIGHT - 50
 
             # deleting level 1 platforms
-            self.all_sprites.remove(self.ground, self.left_wall, self.test_platform2, self.test_platform,
-                                    self.test_platform1, self.KONIEC)
-            self.platforms.remove(self.ground, self.left_wall, self.test_platform2, self.test_platform,
-                                  self.test_platform1, self.KONIEC)
+            self.all_sprites.remove(self.ground, self.ground1, self.left_wall, self.KONIEC, self.platform,
+                                    self.platform1, self.platform2, self.platform3)
+            self.platforms.remove(self.ground, self.ground1, self.left_wall, self.KONIEC, self.platform, self.platform1,
+                                  self.platform2, self.platform3)
 
             self.level2()
 
@@ -147,27 +147,32 @@ class Game:
 
     def level1(self):
 
-        # creating platform objects and adding them to sprite groups
-        self.left_wall = Platform(-250, 0, 270, SCREEN_HEIGHT)
-        self.ground = Platform(0, SCREEN_HEIGHT - 20, 2000, 20)
-        self.test_platform = Platform(350, SCREEN_HEIGHT - 150, 150, 50)
-        self.test_platform1 = Platform(600, SCREEN_HEIGHT - 40, 30, 40)
-        self.test_platform2 = Platform(700, SCREEN_HEIGHT - 300, 300, 50)
-        self.KONIEC = EndPlatform(self.test_platform2.rect.right - 20, self.test_platform2.rect.top - 10, 10, 10)
+        self.KONIEC = EndPlatform(1500, 200, 'flag.png')
 
-        self.all_sprites.add(self.ground, self.left_wall, self.test_platform2, self.test_platform,
-                             self.test_platform1, self.KONIEC)
-        self.platforms.add(self.ground, self.left_wall, self.test_platform2, self.test_platform,
-                           self.test_platform1, self.KONIEC)
+        self.left_wall = Platform(-16, 0, 'sciana.png')
+
+        self.ground = Platform(-16, SCREEN_HEIGHT - 32, 'podloga.png')
+        self.ground1 = Platform(580, SCREEN_HEIGHT - 32, 'podloga.png')
+
+        self.platform = Platform(200, SCREEN_HEIGHT-150, 'hor_platform.png')
+        self.platform1 = Platform(1400, 232, 'hor_platform.png')
+        self.platform2 = Platform(1200, 350, 'hor_platform.png')
+        self.platform3 = Platform(1000, 500, 'hor_platform.png')
+
+        self.all_sprites.add(self.ground, self.ground1, self.KONIEC, self.left_wall, self.platform, self.platform1,
+                             self.platform2, self.platform3)
+        self.platforms.add(self.ground, self.ground1, self.KONIEC, self.left_wall, self.platform, self.platform1,
+                           self.platform2, self.platform3)
 
     def level2(self):
 
         # create new level
-        self.left_wall = Platform(-250, 0, 270, SCREEN_HEIGHT)
-        self.ground = Platform(0, SCREEN_HEIGHT - 20, 2000, 20)
+        self.left_wall = Platform(-16, 0, 'sciana.png')
+        self.ground = Platform(-16, SCREEN_HEIGHT - 32, 'podloga.png')
+        self.ground1 = Platform(580, SCREEN_HEIGHT - 32, 'podloga.png')
 
-        self.all_sprites.add(self.ground, self.left_wall)
-        self.platforms.add(self.ground, self.left_wall)
+        self.all_sprites.add(self.ground, self.ground1, self.left_wall)
+        self.platforms.add(self.ground, self.ground1, self.left_wall)
 
     # start game screen
     def new_game_menu(self, new_game=True):
@@ -304,7 +309,7 @@ class Game:
         self.screen.blit(smallfont.render('velocity y: {0}'.format(self.player.velocity.y), True, WHITE), (x, y + 15))
         self.screen.blit(smallfont.render('position x: {0}'.format(self.player.rect.x), True, WHITE), (x, y + 30))
         self.screen.blit(smallfont.render('position y: {0}'.format(self.player.rect.y), True, WHITE), (x, y + 45))
-        self.screen.blit(smallfont.render('position x: {0}'.format(self.KONIEC.rect.x), True, WHITE), (x, y + 75))
+        # self.screen.blit(smallfont.render('position x: {0}'.format(self.KONIEC.rect.x), True, WHITE), (x, y + 75))
 
 
 # # --- LEVEL ---

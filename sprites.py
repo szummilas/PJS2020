@@ -76,13 +76,11 @@ class PlayerClass(pygame.sprite.Sprite):
 
 # base level building objects
 class Platform(pygame.sprite.Sprite):
-    def __init__(self, x, y, width, height):
+    def __init__(self, x, y, path, width=0, height=0):
         pygame.sprite.Sprite.__init__(self)
-        # self.image = pygame.Surface((width, height))
-        # self.image.fill(RED)
-
-        self.image = pygame.image.load(os.path.join('sprites', 'platformsprite.png')).convert()
+        self.image = pygame.image.load(os.path.join('sprites', path)).convert_alpha()
         platforma = pygame.Surface((width, height))
+
         platforma.blit(self.image, (x, y))
         self.rect = self.image.get_rect()
         self.rect.x = x
@@ -90,6 +88,12 @@ class Platform(pygame.sprite.Sprite):
 
 # when player touches EndPlatform, proceed to next level
 class EndPlatform(Platform):
-    def __init__(self, x, y, width, height):
-        super(EndPlatform, self).__init__(x, y, width, height)
-        self.image.fill(BLUE)
+    def __init__(self, x, y, path, width=0, height=0):
+        super(EndPlatform, self).__init__(x, y, path, width, height)
+        self.image = pygame.image.load(os.path.join('sprites', path)).convert_alpha()
+        platforma = pygame.Surface((width, height))
+
+        platforma.blit(self.image, (x, y))
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
