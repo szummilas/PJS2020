@@ -7,7 +7,8 @@ class PlayerClass(pygame.sprite.Sprite):
         self.game = game
         self.image = pygame.image.load(os.path.join('sprites', 'playersprite1.png')).convert()
         self.rect = self.image.get_rect()
-        self.rect.center = (SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+        # self.rect.center = (SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+        self.rect.center = (200, SCREEN_HEIGHT - 50)
 
         # position of player is calculated using a 2d vector
         self.position = vector(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
@@ -77,8 +78,12 @@ class PlayerClass(pygame.sprite.Sprite):
 class Platform(pygame.sprite.Sprite):
     def __init__(self, x, y, width, height):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.Surface((width, height))
-        self.image.fill(RED) 
+        # self.image = pygame.Surface((width, height))
+        # self.image.fill(RED)
+
+        self.image = pygame.image.load(os.path.join('sprites', 'platformsprite.png')).convert()
+        platforma = pygame.Surface((width, height))
+        platforma.blit(self.image, (x, y))
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y

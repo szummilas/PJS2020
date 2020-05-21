@@ -83,7 +83,8 @@ class Game:
 
         # go to level 2 when blue square touched
         if self.player.rect.right >= self.KONIEC.rect.left and self.player.rect.bottom <= self.KONIEC.rect.bottom:
-            self.player.rect.right = 300
+            self.player.rect.right = 200
+            self.player.rect.bottom = SCREEN_HEIGHT - 50
 
             # deleting level 1 platforms
             self.all_sprites.remove(self.ground, self.left_wall, self.test_platform2, self.test_platform,
