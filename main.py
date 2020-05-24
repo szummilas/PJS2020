@@ -81,16 +81,35 @@ class Game:
             for plat in self.platforms:
                 plat.rect.x += abs(self.player.velocity.x)
 
+
+        # collision with spikes and player's death
+
+        # trzeba znaleźć sprite kolców i zrobić ekran końcowy, zloopować menu po menu końcowym
+
+
+        if self.player.rect.bottom >= self.spikes1.rect.top and self.player.rect.right >= self.spikes1.rect.left and self.player.rect.right <= self.spikes1.rect.right:
+            self.player.kill()
+            game.new_game_menu()
+
+
+
+
+
         # go to level 2 when blue square touched
         if self.player.rect.right >= self.KONIEC.rect.left and self.player.rect.bottom <= self.KONIEC.rect.bottom:
             self.player.rect.right = 200
             self.player.rect.bottom = SCREEN_HEIGHT - 50
 
             # deleting level 1 platforms
-            self.all_sprites.remove(self.ground, self.ground1, self.left_wall, self.KONIEC, self.platform,
-                                    self.platform1, self.platform2, self.platform3)
-            self.platforms.remove(self.ground, self.ground1, self.left_wall, self.KONIEC, self.platform, self.platform1,
-                                  self.platform2, self.platform3)
+            self.all_sprites.remove(self.ground, self.ground1, self.ground2, self.left_wall, self.KONIEC, self.platform1,
+                                    self.platform1, self.platform2, self.platform3, self.platform4, self.platform5,
+                                    self.platform6, self.platform7, self.platform8, self.platform9, self.platform10,
+                                    self.platform11, self.platform12, self.platform13, self.platform14, self.platform15,
+                                    self.platform_end)
+            self.platforms.remove(self.ground, self.ground1, self.ground2, self.left_wall, self.KONIEC, self.platform1,
+                                self.platform2, self.platform3, self.platform4, self.platform5, self.platform6,
+                                self.platform7, self.platform8, self.platform9, self.platform10, self.platform11,
+                                self.platform12, self.platform13, self.platform14, self.platform15, self.platform_end)
 
             self.level2()
 
@@ -147,22 +166,56 @@ class Game:
 
     def level1(self):
 
-        self.KONIEC = EndPlatform(1500, 200, 'flag.png')
+        self.KONIEC = EndPlatform(1900, 200, 'flag.png')
 
         self.left_wall = Platform(-16, 0, 'sciana.png')
 
         self.ground = Platform(-16, SCREEN_HEIGHT - 32, 'podloga.png')
         self.ground1 = Platform(580, SCREEN_HEIGHT - 32, 'podloga.png')
+        self.ground2 = Platform(1000, SCREEN_HEIGHT - 32, 'podloga.png')
+        self.ground3 = Platform(1500, SCREEN_HEIGHT - 32, 'podloga.png')
 
-        self.platform = Platform(200, SCREEN_HEIGHT-150, 'hor_platform.png')
-        self.platform1 = Platform(1400, 232, 'hor_platform.png')
-        self.platform2 = Platform(1200, 350, 'hor_platform.png')
-        self.platform3 = Platform(1000, 500, 'hor_platform.png')
 
-        self.all_sprites.add(self.ground, self.ground1, self.KONIEC, self.left_wall, self.platform, self.platform1,
-                             self.platform2, self.platform3)
-        self.platforms.add(self.ground, self.ground1, self.KONIEC, self.left_wall, self.platform, self.platform1,
-                           self.platform2, self.platform3)
+        # section1
+        self.platform1 = Platform(400, SCREEN_HEIGHT - 100, 'sciana.png')
+        self.platform2 = Platform(550, SCREEN_HEIGHT - 140, 'sciana.png')
+        self.platform3 = Platform(700, SCREEN_HEIGHT - 180, 'sciana.png')
+        self.platform4 = Platform(950, SCREEN_HEIGHT - 220, 'hor_platform.png')
+        self.spikes1 = Spikes(450, SCREEN_HEIGHT - 50, 'podloga.png')
+
+        # section2
+        self.platform6 = Platform(750, SCREEN_HEIGHT - 400, 'hor_platform.png')
+        self.platform7 = Platform(1050, SCREEN_HEIGHT - 300, 'hor_platform.png')
+        self.platform8 = Platform(500, SCREEN_HEIGHT - 400, 'hor_platform.png')
+        self.platform9 = Platform(400, SCREEN_HEIGHT - 400, 'hor_platform.png')
+        self.platform12 = Platform(650, 70, 'hor_platform.png')
+        self.platform10 = Platform(800, 70, 'hor_platform.png')
+        self.platform11 = Platform(950, 70, 'hor_platform.png')
+        self.platform5 = Platform(1100, 70, 'sciana.png')
+
+        # section3
+        self.platform13 = Platform(1500, SCREEN_HEIGHT - 300, 'hor_platform.png')
+        self.platform14 = Platform(1300, -150, 'sciana.png')
+        self.platform15 = Platform(1300, SCREEN_HEIGHT - 150, 'hor_platform.png')
+
+        # koncowa platforma
+        self.platform_end = Platform(1800, 232, 'hor_platform.png')
+
+
+        self.all_sprites.add(self.ground, self.ground1, self.ground2, self.ground3,
+                             self.KONIEC, self.left_wall, self.platform1,
+                             self.platform2, self.platform3, self.platform4, self.platform5, self.platform6,
+                             self.platform7, self.platform8, self.platform9,
+                             self.platform10, self.platform11, self.platform12,
+                             self.platform13, self.platform14, self.platform15,
+                             self.spikes1, self.platform_end)
+        self.platforms.add(self.ground, self.ground1, self.ground2, self.ground3,
+                           self.KONIEC, self.left_wall, self.platform1,
+                           self.platform2, self.platform3, self.platform4, self.platform5, self.platform6,
+                           self.platform7, self.platform8, self.platform9,
+                           self.platform10, self.platform11, self.platform12,
+                           self.platform13, self.platform14, self.platform15,
+                           self.spikes1, self.platform_end)
 
     def level2(self):
 
