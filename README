@@ -16,9 +16,15 @@ Stan gry na ten moment:
 [ 14.05.2020 ]
 -"Narzędzia developerskie" dostępne pod przyciskiem "K"
 -Przejście z poziomu 1 na 2 po wejściu na górną platformę
+[ 28.05.2020 ]
+- Dodanie tekstur
+- Skonstruowanie pierwszego poziomu
+- Dodanie przeszkód w postaci "spikes"
 
 TO DO:
--Dopracowanie kolizji gracza z platformą. Uderzając od dołu, nie będzie mógł
- dostać się na górę platformy. Niestety okazało się to dosyć skomplikowanym
- zagadnieniem i nie zdążyliśmy tego naprawić, a należało wysyłać już raport.
--Nowe poziomy
+- Nowe poziomy
+- System zbierania punktów
+- Nowe przeszkody dla gracza
+- Dopracowane menu
+- "game over screen"
+- Przeciwnicy/mechanika ataku
