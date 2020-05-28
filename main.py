@@ -81,19 +81,13 @@ class Game:
             for plat in self.platforms:
                 plat.rect.x += abs(self.player.velocity.x)
 
-
         # collision with spikes and player's death
 
         # trzeba znaleźć sprite kolców i zrobić ekran końcowy, zloopować menu po menu końcowym
 
-
         if self.player.rect.bottom >= self.spikes1.rect.top and self.player.rect.right >= self.spikes1.rect.left and self.player.rect.right <= self.spikes1.rect.right:
             self.player.kill()
             game.new_game_menu()
-
-
-
-
 
         # go to level 2 when blue square touched
         if self.player.rect.right >= self.KONIEC.rect.left and self.player.rect.bottom <= self.KONIEC.rect.bottom:
@@ -101,15 +95,16 @@ class Game:
             self.player.rect.bottom = SCREEN_HEIGHT - 50
 
             # deleting level 1 platforms
-            self.all_sprites.remove(self.ground, self.ground1, self.ground2, self.left_wall, self.KONIEC, self.platform1,
+            self.all_sprites.remove(self.ground, self.ground1, self.ground2, self.left_wall, self.KONIEC,
+                                    self.platform1,
                                     self.platform1, self.platform2, self.platform3, self.platform4, self.platform5,
                                     self.platform6, self.platform7, self.platform8, self.platform9, self.platform10,
                                     self.platform11, self.platform12, self.platform13, self.platform14, self.platform15,
                                     self.platform_end)
             self.platforms.remove(self.ground, self.ground1, self.ground2, self.left_wall, self.KONIEC, self.platform1,
-                                self.platform2, self.platform3, self.platform4, self.platform5, self.platform6,
-                                self.platform7, self.platform8, self.platform9, self.platform10, self.platform11,
-                                self.platform12, self.platform13, self.platform14, self.platform15, self.platform_end)
+                                  self.platform2, self.platform3, self.platform4, self.platform5, self.platform6,
+                                  self.platform7, self.platform8, self.platform9, self.platform10, self.platform11,
+                                  self.platform12, self.platform13, self.platform14, self.platform15, self.platform_end)
 
             self.level2()
 
@@ -175,13 +170,12 @@ class Game:
         self.ground2 = Platform(1000, SCREEN_HEIGHT - 32, 'podloga.png')
         self.ground3 = Platform(1500, SCREEN_HEIGHT - 32, 'podloga.png')
 
-
         # section1
         self.platform1 = Platform(400, SCREEN_HEIGHT - 100, 'sciana.png')
         self.platform2 = Platform(550, SCREEN_HEIGHT - 140, 'sciana.png')
         self.platform3 = Platform(700, SCREEN_HEIGHT - 180, 'sciana.png')
         self.platform4 = Platform(950, SCREEN_HEIGHT - 220, 'hor_platform.png')
-        self.spikes1 = Spikes(450, SCREEN_HEIGHT - 50, 'podloga.png')
+        self.spikes1 = Spikes(430, SCREEN_HEIGHT - 65, 'spikes.png')
 
         # section2
         self.platform6 = Platform(750, SCREEN_HEIGHT - 400, 'hor_platform.png')
@@ -200,7 +194,6 @@ class Game:
 
         # koncowa platforma
         self.platform_end = Platform(1800, 232, 'hor_platform.png')
-
 
         self.all_sprites.add(self.ground, self.ground1, self.ground2, self.ground3,
                              self.KONIEC, self.left_wall, self.platform1,
@@ -242,7 +235,7 @@ class Game:
             self.screen.fill(BLACK)
 
             # displays text to screen
-            self.message_to_screen("Progress: 12.05.2020", RED, -100, "large")
+            self.message_to_screen("Progress: 28.05.2020", RED, -100, "large")
             self.message_to_screen("Move and jump on platforms", RED, -30, "small")
 
             # dummy buttons
