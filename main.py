@@ -81,30 +81,35 @@ class Game:
             for plat in self.platforms:
                 plat.rect.x += abs(self.player.velocity.x)
 
+
+
         # collision with spikes and player's death
-
-        # trzeba znaleźć sprite kolców i zrobić ekran końcowy, zloopować menu po menu końcowym
-
         if self.player.rect.bottom >= self.spikes1.rect.top and self.player.rect.right >= self.spikes1.rect.left and self.player.rect.right <= self.spikes1.rect.right:
             self.player.kill()
-            game.new_game_menu()
+            game.game_over_menu()
 
-        # go to level 2 when blue square touched
+
+
+        # jak to na górze zloopować żeby zaczęło od nowa??
+
+
+
+        # go to level 2 when flag touched
         if self.player.rect.right >= self.KONIEC.rect.left and self.player.rect.bottom <= self.KONIEC.rect.bottom:
             self.player.rect.right = 200
             self.player.rect.bottom = SCREEN_HEIGHT - 50
 
             # deleting level 1 platforms
-            self.all_sprites.remove(self.ground, self.ground1, self.ground2, self.left_wall, self.KONIEC,
-                                    self.platform1,
+            self.all_sprites.remove(self.ground, self.ground1, self.ground2, self.left_wall, self.KONIEC, self.platform1,
                                     self.platform1, self.platform2, self.platform3, self.platform4, self.platform5,
                                     self.platform6, self.platform7, self.platform8, self.platform9, self.platform10,
                                     self.platform11, self.platform12, self.platform13, self.platform14, self.platform15,
-                                    self.platform_end)
+                                    self.platform_end, self.spikes1)
             self.platforms.remove(self.ground, self.ground1, self.ground2, self.left_wall, self.KONIEC, self.platform1,
-                                  self.platform2, self.platform3, self.platform4, self.platform5, self.platform6,
-                                  self.platform7, self.platform8, self.platform9, self.platform10, self.platform11,
-                                  self.platform12, self.platform13, self.platform14, self.platform15, self.platform_end)
+                                    self.platform2, self.platform3, self.platform4, self.platform5, self.platform6,
+                                    self.platform7, self.platform8, self.platform9, self.platform10, self.platform11,
+                                    self.platform12, self.platform13, self.platform14, self.platform15, self.platform_end,
+                                    self.spikes1)
 
             self.level2()
 
@@ -195,20 +200,18 @@ class Game:
         # koncowa platforma
         self.platform_end = Platform(1800, 232, 'hor_platform.png')
 
-        self.all_sprites.add(self.ground, self.ground1, self.ground2, self.ground3,
-                             self.KONIEC, self.left_wall, self.platform1,
-                             self.platform2, self.platform3, self.platform4, self.platform5, self.platform6,
+        self.all_sprites.add(self.KONIEC, self.spikes1, self.left_wall, self.platform1,
+                             self.platform2, self.platform3, self.platform4, self.platform6,
                              self.platform7, self.platform8, self.platform9,
                              self.platform10, self.platform11, self.platform12,
-                             self.platform13, self.platform14, self.platform15,
-                             self.spikes1, self.platform_end)
-        self.platforms.add(self.ground, self.ground1, self.ground2, self.ground3,
-                           self.KONIEC, self.left_wall, self.platform1,
-                           self.platform2, self.platform3, self.platform4, self.platform5, self.platform6,
+                             self.platform13, self.platform14, self.platform15, self.platform_end, self.platform5,
+                             self.ground, self.ground1, self.ground2, self.ground3)
+        self.platforms.add(self.KONIEC, self.spikes1, self.left_wall, self.platform1,
+                           self.platform2, self.platform3, self.platform4, self.platform6,
                            self.platform7, self.platform8, self.platform9,
                            self.platform10, self.platform11, self.platform12,
-                           self.platform13, self.platform14, self.platform15,
-                           self.spikes1, self.platform_end)
+                           self.platform13, self.platform14, self.platform15, self.platform_end, self.platform5,
+                           self.ground, self.ground1, self.ground2, self.ground3)
 
     def level2(self):
 
@@ -239,14 +242,14 @@ class Game:
             self.message_to_screen("Move and jump on platforms", RED, -30, "small")
 
             # dummy buttons
-            self.dummybutton("Play", 200, 500, 100, 50, RED)
-            self.dummybutton("Controls", 550, 500, 100, 50, RED)
-            self.dummybutton("Quit", 900, 500, 100, 50, RED)
+            self.dummybutton("PLAY", 200, 500, 100, 50, RED)
+            self.dummybutton("CONTROLS", 550, 500, 100, 50, RED)
+            self.dummybutton("QUIT", 900, 500, 100, 50, RED)
 
             # buttons
-            self.button("Play", 200, 500, 100, 50, RED, LIGHT_RED, action="play")
-            self.button("Controls", 550, 500, 100, 50, RED, LIGHT_RED, action="controls")
-            self.button("Quit", 900, 500, 100, 50, RED, LIGHT_RED, action="quit")
+            self.button("PLAY", 200, 500, 100, 50, RED, LIGHT_RED, action="play")
+            self.button("CONTROLS", 550, 500, 100, 50, RED, LIGHT_RED, action="controls")
+            self.button("QUIT", 900, 500, 100, 50, RED, LIGHT_RED, action="quit")
 
             pygame.display.update()
             self.clock.tick(FPS)
@@ -268,22 +271,46 @@ class Game:
             self.message_to_screen("Move left: 'A'  Move Right: 'D'  Jump: 'Space'", RED, -30, "small")
 
             # dummy buttons
-            self.dummybutton("Play", 200, 500, 100, 50, RED)
-            self.dummybutton("Menu", 550, 500, 100, 50, RED)
-            self.dummybutton("Quit", 900, 500, 100, 50, RED)
+            self.dummybutton("PLAY", 200, 500, 100, 50, RED)
+            self.dummybutton("MENU", 550, 500, 100, 50, RED)
+            self.dummybutton("QUIT", 900, 500, 100, 50, RED)
 
             # buttons
-            self.button("Play", 200, 500, 100, 50, RED, LIGHT_RED, action="play")
-            self.button("Menu", 550, 500, 100, 50, RED, LIGHT_RED, action="main")
-            self.button("Quit", 900, 500, 100, 50, RED, LIGHT_RED, action="quit")
+            self.button("PLAY", 200, 500, 100, 50, RED, LIGHT_RED, action="play")
+            self.button("MENU", 550, 500, 100, 50, RED, LIGHT_RED, action="main")
+            self.button("QUIT", 900, 500, 100, 50, RED, LIGHT_RED, action="quit")
 
             pygame.display.update()
             self.clock.tick(FPS)
 
     # end game menu
-    def game_over_menu(self):
-        pass
+    def game_over_menu(self, dead=True):
 
+        while dead:
+            # game exit
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.playing = False
+                    self.running = False
+                    pygame.quit()
+                    quit()
+
+
+            self.screen.fill(BLACK)
+            self.message_to_screen("YOU DIED", RED, -100, "large")
+
+            # dummy buttons
+            self.dummybutton("TRY AGAIN", 300, 400, 200, 120, RED)
+            self.dummybutton("QUIT", 700, 400, 200, 120, RED)
+
+            # buttons
+            self.button("TRY AGAIN", 300, 400, 200, 120, RED, LIGHT_RED, action="play")
+            self.button("QUIT", 700, 400, 200, 120, RED, LIGHT_RED, action="quit")
+
+            pygame.display.update()
+            self.clock.tick(FPS)
+
+    # button method
     def button(self, text, x, y, width, height, inactive_color, active_color, action=None):
         # current position of mouse cursor
         cur = pygame.mouse.get_pos()
@@ -323,7 +350,7 @@ class Game:
     # button helping not to crash when clicking buttons
     def dummybutton(self, text, x, y, width, height, inactive_color):
         pygame.draw.rect(self.screen, inactive_color, (x, y, width, height))
-        self.text_to_button(text, BLACK, x, y, width, height)
+        self.text_to_button(text, WHITE, x, y, width, height)
 
     # defining text size function
     def text_objects(self, text, color, size):
@@ -355,30 +382,6 @@ class Game:
         self.screen.blit(smallfont.render('velocity y: {0}'.format(self.player.velocity.y), True, WHITE), (x, y + 15))
         self.screen.blit(smallfont.render('position x: {0}'.format(self.player.rect.x), True, WHITE), (x, y + 30))
         self.screen.blit(smallfont.render('position y: {0}'.format(self.player.rect.y), True, WHITE), (x, y + 45))
-        # self.screen.blit(smallfont.render('position x: {0}'.format(self.KONIEC.rect.x), True, WHITE), (x, y + 75))
-
-
-# # --- LEVEL ---
-# class Level(Game):
-#
-#     # 'player' refers to object created in class Game
-#     def __init__(self, player):
-#         Game.__init__(self)
-#         self.platform_list = pygame.sprite.Group()
-#         self.player = player
-#
-#     def update(self):
-#         self.platform_list.update()
-#
-#     def draw(self):
-#         self.screen.fill(BLACK)
-#         self.platform_list.draw(self.screen)
-#
-#
-# class Level01(Level):
-#
-#     def __init__(self, player):
-#         Level.__init__(self, player)
 
 
 # --- CREATE GAME OBJECT ---
