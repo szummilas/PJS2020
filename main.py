@@ -323,7 +323,7 @@ class Game:
     # button helping not to crash when clicking buttons
     def dummybutton(self, text, x, y, width, height, inactive_color):
         pygame.draw.rect(self.screen, inactive_color, (x, y, width, height))
-        self.text_to_button(text, BLACK, x, y, width, height)
+        self.text_to_button(text, WHITE, x, y, width, height)
 
     # defining text size function
     def text_objects(self, text, color, size):
