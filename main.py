@@ -28,11 +28,9 @@ class Game:
         # devs
         self.devs = False
 
-        self.player = PlayerClass(self)
-
     # start new game
     def new_game(self):
-
+        self.player = PlayerClass(self)
         # tutaj nie mam pojecia czemu podkresla self ¯\_(ツ)_/¯
         # self.level = Level.__init__(self, self.player)
         # grouping all sprites
@@ -87,8 +85,6 @@ class Game:
         if self.player.rect.bottom >= self.spikes1.rect.top and self.player.rect.right >= self.spikes1.rect.left and self.player.rect.right <= self.spikes1.rect.right:
             self.player.kill()
             game.game_over_menu()
-
-
 
         # jak to na górze zloopować żeby zaczęło od nowa??
 
@@ -180,7 +176,7 @@ class Game:
         self.platform2 = Platform(550, SCREEN_HEIGHT - 140, 'sciana.png')
         self.platform3 = Platform(700, SCREEN_HEIGHT - 180, 'sciana.png')
         self.platform4 = Platform(950, SCREEN_HEIGHT - 220, 'hor_platform.png')
-        self.spikes1 = Spikes(430, SCREEN_HEIGHT - 65, 'spikes.png')
+        self.spikes1 = Spikes(430, SCREEN_HEIGHT - 64, 'spikes.png')
 
         # section2
         self.platform6 = Platform(750, SCREEN_HEIGHT - 400, 'hor_platform.png')
@@ -304,7 +300,7 @@ class Game:
             self.dummybutton("QUIT", 700, 400, 200, 120, RED)
 
             # buttons
-            self.button("TRY AGAIN", 300, 400, 200, 120, RED, LIGHT_RED, action="play")
+            self.button("TRY AGAIN", 300, 400, 200, 120, RED, LIGHT_RED, action="main")
             self.button("QUIT", 700, 400, 200, 120, RED, LIGHT_RED, action="quit")
 
             pygame.display.update()

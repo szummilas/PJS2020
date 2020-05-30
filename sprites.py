@@ -5,7 +5,7 @@ class PlayerClass(pygame.sprite.Sprite):
     def __init__(self, game):
         pygame.sprite.Sprite.__init__(self)
         self.game = game
-        self.image = pygame.image.load(os.path.join('sprites', 'playersprite1.png')).convert()
+        self.image = pygame.image.load(os.path.join('sprites', 'playersprite1.png')).convert_alpha()
         self.rect = self.image.get_rect()
         # self.rect.center = (SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
         self.rect.center = (200, SCREEN_HEIGHT - 50)
@@ -66,9 +66,11 @@ class PlayerClass(pygame.sprite.Sprite):
 
     # movement methods
     def left(self):
+        self.image = pygame.image.load(os.path.join('sprites', 'playersprite1.png')).convert_alpha()
         self.velocity.x = -player_velocity
 
     def right(self):
+        self.image = pygame.image.load(os.path.join('sprites', 'playersprite2.png')).convert_alpha()
         self.velocity.x = player_velocity
 
     def stop(self):
