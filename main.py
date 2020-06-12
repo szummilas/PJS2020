@@ -90,12 +90,12 @@ class Game:
             self.player.rect.bottom = SCREEN_HEIGHT - 50
 
             # deleting level 1 platforms
-            self.all_sprites.remove(self.ground, self.ground1, self.ground2, self.left_wall, self.KONIEC, self.platform1,
+            self.all_sprites.remove(self.ground, self.ground1, self.ground2, self.platform44, self.left_wall, self.KONIEC, self.platform1,
                                     self.platform1, self.platform2, self.platform3, self.platform4, self.platform5,
                                     self.platform6, self.platform7, self.platform8, self.platform9, self.platform10,
                                     self.platform11, self.platform12, self.platform13, self.platform14, self.platform15,
                                     self.platform_end, self.spikes1)
-            self.platforms.remove(self.ground, self.ground1, self.ground2, self.left_wall, self.KONIEC, self.platform1,
+            self.platforms.remove(self.ground, self.ground1, self.ground2, self.platform44, self.left_wall, self.KONIEC, self.platform1,
                                     self.platform2, self.platform3, self.platform4, self.platform5, self.platform6,
                                     self.platform7, self.platform8, self.platform9, self.platform10, self.platform11,
                                     self.platform12, self.platform13, self.platform14, self.platform15, self.platform_end,
@@ -181,6 +181,7 @@ class Game:
         self.platform2 = Platform(550, SCREEN_HEIGHT - 140, 'sciana.png')
         self.platform3 = Platform(700, SCREEN_HEIGHT - 180, 'sciana.png')
         self.platform4 = Platform(950, SCREEN_HEIGHT - 220, 'hor_platform.png')
+        self.platform44 = Platform(0, SCREEN_HEIGHT - 450, 'hor_platform.png')
         self.spikes1 = Spikes(430, SCREEN_HEIGHT - 64, 'spikes.png')
 
         # section2
@@ -201,13 +202,13 @@ class Game:
         # koncowa platforma
         self.platform_end = Platform(1800, 232, 'hor_platform.png')
 
-        self.all_sprites.add(self.KONIEC, self.spikes1, self.left_wall, self.platform1,
+        self.all_sprites.add(self.KONIEC, self.spikes1, self.platform44, self.left_wall, self.platform1,
                              self.platform2, self.platform3, self.platform4, self.platform6,
                              self.platform7, self.platform8, self.platform9,
                              self.platform10, self.platform11, self.platform12,
                              self.platform13, self.platform14, self.platform15, self.platform_end, self.platform5,
                              self.ground, self.ground1, self.ground2, self.ground3)
-        self.platforms.add(self.KONIEC, self.spikes1, self.left_wall, self.platform1,
+        self.platforms.add(self.KONIEC, self.spikes1, self.platform44, self.left_wall, self.platform1,
                            self.platform2, self.platform3, self.platform4, self.platform6,
                            self.platform7, self.platform8, self.platform9,
                            self.platform10, self.platform11, self.platform12,
@@ -222,18 +223,24 @@ class Game:
         self.ground = Platform(-16, SCREEN_HEIGHT - 32, 'podloga.png')
         self.ground1 = Platform(580, SCREEN_HEIGHT - 32, 'podloga.png')
 
-        self.spikes1 = Spikes(-480, SCREEN_HEIGHT - 64, 'spikes.png')
+        self.spikes1 = Spikes(0, SCREEN_HEIGHT - 64, 'spikes_short.png')
 
         self.platform20 = Platform(120, SCREEN_HEIGHT - 172, 'hor_platform.png')
         self.platform21 = Platform(120, SCREEN_HEIGHT - 312, 'hor_platform.png')
         self.platform22 = Platform(260, SCREEN_HEIGHT - 312, 'hor_platform.png')
+        self.platform23 = Platform(230, SCREEN_HEIGHT - 455, 'hor_platform.png')
+        self.platform24 = Platform(0, SCREEN_HEIGHT - 455, 'hor_platform_short.png')
 
-        self.wall1 = Platform(400, SCREEN_HEIGHT - 500, 'sciana.png')
+        self.wall1 = Platform(400, SCREEN_HEIGHT - 312, 'sciana_mala.png')
+        self.wall2 = Platform(400, SCREEN_HEIGHT - 140, 'sciana_mala.png')
+        self.wall3 = Platform(230, SCREEN_HEIGHT - 455, 'sciana_mala.png')
 
-        self.all_sprites.add(self.ground, self.ground1, self.left_wall, self.spikes1, self.platform20, self.platform21,
-                             self.platform22, self.wall1)
-        self.platforms.add(self.ground, self.ground1, self.left_wall, self.spikes1, self.platform20, self.platform21,
-                           self.platform22, self.wall1)
+        self.all_sprites.add(self.spikes1, self.platform20, self.wall3, self.platform21, self.platform22, self.platform23,
+                             self.platform24, self.left_wall, self.wall1, self.wall2,
+                             self.ground, self.ground1)
+        self.platforms.add(self.spikes1, self.platform20, self.wall3, self.platform21, self.platform22, self.platform23,
+                           self.platform24, self.left_wall, self.wall1, self.wall2,
+                           self.ground, self.ground1)
 
     # start game screen
     def new_game_menu(self, new_game=True):
