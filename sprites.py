@@ -7,7 +7,6 @@ class PlayerClass(pygame.sprite.Sprite):
         self.game = game
         self.image = pygame.image.load(os.path.join('sprites', 'playersprite1.png')).convert_alpha()
         self.rect = self.image.get_rect()
-        # self.rect.center = (SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
         self.rect.center = (200, SCREEN_HEIGHT - 50)
 
         # position of player is calculated using a 2d vector

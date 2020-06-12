@@ -79,16 +79,10 @@ class Game:
             for plat in self.platforms:
                 plat.rect.x += abs(self.player.velocity.x)
 
-
-
         # collision with spikes and player's death
         if self.player.rect.bottom >= self.spikes1.rect.top and self.player.rect.right >= self.spikes1.rect.left and self.player.rect.right <= self.spikes1.rect.right:
             self.player.kill()
             game.game_over_menu()
-
-        # jak to na górze zloopować żeby zaczęło od nowa??
-
-
 
         # go to level 2 when flag touched
         if self.player.rect.right >= self.KONIEC.rect.left and self.player.rect.bottom <= self.KONIEC.rect.bottom:
@@ -107,6 +101,15 @@ class Game:
                                     self.platform12, self.platform13, self.platform14, self.platform15, self.platform_end,
                                     self.spikes1)
 
+            # level1 completed
+            self.screen.fill(BLACK)
+            self.message_to_screen("CONGRATULATIONS", RED, -100, "large")
+            self.message_to_screen("You have completed level 1", RED, 0, "med")
+            pygame.display.update()
+
+            pygame.time.wait(2000)
+
+            # level2
             self.level2()
 
     # in-game events
@@ -162,7 +165,9 @@ class Game:
 
     def level1(self):
 
-        self.KONIEC = EndPlatform(1900, 200, 'flag.png')
+        # self.KONIEC = EndPlatform(1900, 200, 'flag.png')
+        self.KONIEC = EndPlatform(500, SCREEN_HEIGHT-150, 'flag.png')
+
 
         self.left_wall = Platform(-16, 0, 'sciana.png')
 
@@ -213,11 +218,22 @@ class Game:
 
         # create new level
         self.left_wall = Platform(-16, 0, 'sciana.png')
+
         self.ground = Platform(-16, SCREEN_HEIGHT - 32, 'podloga.png')
         self.ground1 = Platform(580, SCREEN_HEIGHT - 32, 'podloga.png')
 
-        self.all_sprites.add(self.ground, self.ground1, self.left_wall)
-        self.platforms.add(self.ground, self.ground1, self.left_wall)
+        self.spikes1 = Spikes(-480, SCREEN_HEIGHT - 64, 'spikes.png')
+
+        self.platform20 = Platform(120, SCREEN_HEIGHT - 172, 'hor_platform.png')
+        self.platform21 = Platform(120, SCREEN_HEIGHT - 312, 'hor_platform.png')
+        self.platform22 = Platform(260, SCREEN_HEIGHT - 312, 'hor_platform.png')
+
+        self.wall1 = Platform(400, SCREEN_HEIGHT - 500, 'sciana.png')
+
+        self.all_sprites.add(self.ground, self.ground1, self.left_wall, self.spikes1, self.platform20, self.platform21,
+                             self.platform22, self.wall1)
+        self.platforms.add(self.ground, self.ground1, self.left_wall, self.spikes1, self.platform20, self.platform21,
+                           self.platform22, self.wall1)
 
     # start game screen
     def new_game_menu(self, new_game=True):
@@ -305,6 +321,21 @@ class Game:
 
             pygame.display.update()
             self.clock.tick(FPS)
+
+    # def level1end(self, new_game = True):
+    #
+    #     while new_game:
+    #         # game exit
+    #         for event in pygame.event.get():
+    #             if event.type == pygame.QUIT:
+    #                 self.playing = False
+    #                 self.running = False
+    #                 pygame.quit()
+    #                 quit()
+    #
+    #         self.screen.fill(BLACK)
+    #         self.message_to_screen("CONGRATULATIONS", RED, -100, "large")
+    #         self.message_to_screen("You have completed level 1", RED, -200, "med")
 
     # button method
     def button(self, text, x, y, width, height, inactive_color, active_color, action=None):
