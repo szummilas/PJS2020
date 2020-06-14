@@ -20,7 +20,10 @@ Stan gry na ten moment:
 - Dodanie tekstur
 - Skonstruowanie pierwszego poziomu
 - Dodanie przeszkód w postaci "spikes"
+[14.06.2020]
+- Dodanie punktów i systemu ich zbierania
+- Dodanie 'boostów'
 
 TO DO:
-- Nowe poziomy
-- System zbierania punktów
+- Bubercik musi dopracować lvl
+- Dodać dźwięki
