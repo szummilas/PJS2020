@@ -1,5 +1,5 @@
 from settings import *
-
+from random import choice
 
 class PlayerClass(pygame.sprite.Sprite):
     def __init__(self, game):
@@ -111,3 +111,39 @@ class Spikes(Platform):
         self.rect.x = x
         self.rect.y = y
 
+class GoldPoints(pygame.sprite.Sprite):
+    def __init__(self, x, y, width=0, height=0):
+        super(GoldPoints, self).__init__()
+        self.image = pygame.image.load(os.path.join('sprites', 'item.png')).convert_alpha()
+        point = pygame.Surface((width, height))
+
+        point.blit(self.image, (x, y))
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+
+        self.type = choice(['gold'])
+
+class SilverPoints(pygame.sprite.Sprite):
+    def __init__(self, x, y, width=0, height=0):
+        super(SilverPoints, self).__init__()
+        self.image = pygame.image.load(os.path.join('sprites', 'item2.png')).convert_alpha()
+        point = pygame.Surface((width, height))
+
+        point.blit(self.image, (x, y))
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+
+        self.type = choice(['silver'])
+
+class BoostPoint(pygame.sprite.Sprite):
+    def __init__(self, x, y, width=0, height=0):
+        super(BoostPoint, self).__init__()
+        self.image = pygame.image.load(os.path.join('sprites', 'cookie.png')).convert_alpha()
+        point = pygame.Surface((width, height))
+
+        point.blit(self.image, (x, y))
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y

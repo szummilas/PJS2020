@@ -28,6 +28,7 @@ gravity = 1
 player_velocity = 6
 player_acceleration = 0.5
 friction = -0.15
+multiplier = 1
 
 # --- FONTS ---
 smallfont = pygame.font.Font(os.path.join('font', 'PressStart2P-Regular.ttf'), 10)

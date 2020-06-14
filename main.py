@@ -28,10 +28,11 @@ class Game:
         # devs
         self.devs = False
 
+        self.multiplier = multiplier
+
     # start new game
     def new_game(self):
         self.player = PlayerClass(self)
-        # tutaj nie mam pojecia czemu podkresla self ¯\_(ツ)_/¯
         # self.level = Level.__init__(self, self.player)
         # grouping all sprites
         self.all_sprites = pygame.sprite.Group()
@@ -39,6 +40,10 @@ class Game:
         self.platforms = pygame.sprite.Group()
         # adding player to sprite group
         self.all_sprites.add(self.player)
+
+        self.point_couter = 0
+        self.points_list = pygame.sprite.Group()
+        self.boosts_list = pygame.sprite.Group()
 
         self.level1()
 
@@ -66,6 +71,9 @@ class Game:
         if self.devs:
             self.write(100, 100)
 
+        # text with your points
+        self.screen.blit(smallfont.render('Your points: {0}'.format(self.point_couter), True, WHITE), (SCREEN_WIDTH - 210, 30))
+
         self.all_sprites.update()
 
         # screen movement when close to the edge
@@ -73,11 +81,38 @@ class Game:
             self.player.rect.right = SCREEN_WIDTH - 200
             for plat in self.platforms:
                 plat.rect.x -= abs(self.player.velocity.x)
+            for p in self.points_list:
+                p.rect.x -= abs(self.player.velocity.x)
+            for ciasteczko in self.boosts_list:
+                ciasteczko.rect.x -= abs(self.player.velocity.x)
 
         if self.player.rect.left <= 200 and self.player.velocity.x < 0:
             self.player.rect.left = 200
             for plat in self.platforms:
                 plat.rect.x += abs(self.player.velocity.x)
+            for p in self.points_list:
+                p.rect.x += abs(self.player.velocity.x)
+            for ciasteczko in self.boosts_list:
+                ciasteczko.rect.x += abs(self.player.velocity.x)
+
+        # collecting points
+        pts_hit = pygame.sprite.spritecollide(self.player, self.points_list, True)
+        for p in pts_hit:
+            p.kill()
+            if p.type == 'gold':
+                self.point_couter += 5
+            elif p.type == 'silver':
+                self.point_couter += 1
+
+            print(self.point_couter)
+
+        # ciasteczka boostuja skok w chwili ich zebrania
+        boost_hit = pygame.sprite.spritecollide(self.player, self.boosts_list, True)
+        for cookie in boost_hit:
+            cookie.kill()
+            multiplier = 2
+            self.player.velocity.y = self.player.velocity.y * multiplier
+            print('COOKIE')
 
         # collision with spikes and player's death
         if self.player.rect.bottom >= self.spikes1.rect.top and self.player.rect.right >= self.spikes1.rect.left and self.player.rect.right <= self.spikes1.rect.right:
@@ -94,12 +129,13 @@ class Game:
                                     self.platform1, self.platform2, self.platform3, self.platform4, self.platform5,
                                     self.platform6, self.platform7, self.platform8, self.platform9, self.platform10,
                                     self.platform11, self.platform12, self.platform13, self.platform14, self.platform15,
-                                    self.platform_end, self.spikes1)
+                                    self.platform_end, self.spikes1, self.golden_point1, self.silver_point1)
             self.platforms.remove(self.ground, self.ground1, self.ground2, self.platform44, self.left_wall, self.KONIEC, self.platform1,
                                     self.platform2, self.platform3, self.platform4, self.platform5, self.platform6,
                                     self.platform7, self.platform8, self.platform9, self.platform10, self.platform11,
                                     self.platform12, self.platform13, self.platform14, self.platform15, self.platform_end,
                                     self.spikes1)
+            self.points_list.remove(self.golden_point1, self.silver_point1)
 
             # level1 completed
             self.screen.fill(BLACK)
@@ -202,18 +238,27 @@ class Game:
         # koncowa platforma
         self.platform_end = Platform(1800, 232, 'hor_platform.png')
 
+        # tak tworzysz punkty
+        self.golden_point1 = GoldPoints(300, SCREEN_HEIGHT - 160)
+        self.silver_point1 = SilverPoints(250, SCREEN_HEIGHT - 180)
+
+        self.cookie1 = BoostPoint(200, SCREEN_HEIGHT - 150)
+
+        # dodałem te punkty zarówno do all_sprites jak i do points
         self.all_sprites.add(self.KONIEC, self.spikes1, self.platform44, self.left_wall, self.platform1,
                              self.platform2, self.platform3, self.platform4, self.platform6,
                              self.platform7, self.platform8, self.platform9,
                              self.platform10, self.platform11, self.platform12,
                              self.platform13, self.platform14, self.platform15, self.platform_end, self.platform5,
-                             self.ground, self.ground1, self.ground2, self.ground3)
+                             self.ground, self.ground1, self.ground2, self.ground3, self.golden_point1, self.silver_point1, self.cookie1)
         self.platforms.add(self.KONIEC, self.spikes1, self.platform44, self.left_wall, self.platform1,
                            self.platform2, self.platform3, self.platform4, self.platform6,
                            self.platform7, self.platform8, self.platform9,
                            self.platform10, self.platform11, self.platform12,
                            self.platform13, self.platform14, self.platform15, self.platform_end, self.platform5,
                            self.ground, self.ground1, self.ground2, self.ground3)
+        self.points_list.add(self.golden_point1, self.silver_point1)
+        self.boosts_list.add(self.cookie1)
 
     def level2(self):
 
