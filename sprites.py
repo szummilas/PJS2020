@@ -23,7 +23,9 @@ class PlayerClass(pygame.sprite.Sprite):
         self.rect.y -= 1
 
         if len(collisions) > 0 or self.rect.bottom >= SCREEN_HEIGHT:
+            self.game.jump_sound.play()
             self.velocity.y = -10
+
 
     def update(self):
 

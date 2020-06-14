@@ -30,6 +30,11 @@ class Game:
 
         self.multiplier = multiplier
 
+        self.jump_sound = pygame.mixer.Sound(os.path.join('sounds', 'Jump2.wav'))
+        self.hit_sound = pygame.mixer.Sound(os.path.join('sounds', 'Hit_Hurt.wav'))
+        self.coin_sound = pygame.mixer.Sound(os.path.join('sounds', 'Pickup_Coin.wav'))
+        self.powerup_sound = pygame.mixer.Sound(os.path.join('sounds', 'Powerup.wav'))
+
     # start new game
     def new_game(self):
         self.player = PlayerClass(self)
@@ -52,6 +57,9 @@ class Game:
     # main game loop
     def run_game(self):
 
+        pygame.mixer.music.load(os.path.join('sounds', 'j-bernardt-motel-official-audio.ogg'))
+        pygame.mixer.music.set_volume(0.06)
+        pygame.mixer.music.play(loops = -1)
         self.playing = True
 
         while self.playing:
@@ -62,6 +70,7 @@ class Game:
             self.handle_events()
             self.update()
             self.draw()
+        pygame.mixer.music.fadeout(500)
 
     # updating game state
     def update(self):
@@ -98,6 +107,7 @@ class Game:
         # collecting points
         pts_hit = pygame.sprite.spritecollide(self.player, self.points_list, True)
         for p in pts_hit:
+            self.coin_sound.play()
             p.kill()
             if p.type == 'gold':
                 self.point_couter += 5
@@ -109,6 +119,7 @@ class Game:
         # ciasteczka boostuja skok w chwili ich zebrania
         boost_hit = pygame.sprite.spritecollide(self.player, self.boosts_list, True)
         for cookie in boost_hit:
+            self.powerup_sound.play()
             cookie.kill()
             multiplier = 2
             self.player.velocity.y = self.player.velocity.y * multiplier
@@ -116,6 +127,7 @@ class Game:
 
         # collision with spikes and player's death
         if self.player.rect.bottom >= self.spikes1.rect.top and self.player.rect.right >= self.spikes1.rect.left and self.player.rect.right <= self.spikes1.rect.right:
+            self.hit_sound.play()
             self.player.kill()
             game.game_over_menu()
 
