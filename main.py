@@ -46,7 +46,7 @@ class Game:
         # adding player to sprite group
         self.all_sprites.add(self.player)
 
-        self.point_couter = 0
+        self.point_counter = 0
         self.points_list = pygame.sprite.Group()
         self.boosts_list = pygame.sprite.Group()
 
@@ -80,9 +80,6 @@ class Game:
         if self.devs:
             self.write(100, 100)
 
-        # text with your points
-        self.screen.blit(smallfont.render('Your points: {0}'.format(self.point_couter), True, WHITE), (SCREEN_WIDTH - 210, 30))
-
         self.all_sprites.update()
 
         # screen movement when close to the edge
@@ -110,14 +107,15 @@ class Game:
             self.coin_sound.play()
             p.kill()
             if p.type == 'gold':
-                self.point_couter += 5
+                self.point_counter += 5
             elif p.type == 'silver':
-                self.point_couter += 1
+                self.point_counter += 1
 
-            print(self.point_couter)
+            print(self.point_counter)
 
         # ciasteczka boostuja skok w chwili ich zebrania
         boost_hit = pygame.sprite.spritecollide(self.player, self.boosts_list, True)
+
         for cookie in boost_hit:
             self.powerup_sound.play()
             cookie.kill()
@@ -208,12 +206,15 @@ class Game:
         # drawing sprites group
         self.all_sprites.draw(self.screen)
 
+        # text with your points
+        self.screen.blit(smallfont.render('Your points: {0}'.format(self.point_counter), True, WHITE), (SCREEN_WIDTH - 210, 30))
+
         # updates contents of the screen
         pygame.display.update()
 
     def level1(self):
-        self.KONIEC = EndPlatform(1900, 201, 'flag.png')
 
+        self.KONIEC = EndPlatform(1900, 201, 'flag.png')
 
         self.left_wall = Platform(-16, 0, 'sciana.png')
 
@@ -385,21 +386,6 @@ class Game:
 
             pygame.display.update()
             self.clock.tick(FPS)
-
-    # def level1end(self, new_game = True):
-    #
-    #     while new_game:
-    #         # game exit
-    #         for event in pygame.event.get():
-    #             if event.type == pygame.QUIT:
-    #                 self.playing = False
-    #                 self.running = False
-    #                 pygame.quit()
-    #                 quit()
-    #
-    #         self.screen.fill(BLACK)
-    #         self.message_to_screen("CONGRATULATIONS", RED, -100, "large")
-    #         self.message_to_screen("You have completed level 1", RED, -200, "med")
 
     # button method
     def button(self, text, x, y, width, height, inactive_color, active_color, action=None):
