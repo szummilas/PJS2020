@@ -90,25 +90,25 @@ class Platform(pygame.sprite.Sprite):
         self.rect.y = y
 
 # when player touches EndPlatform, proceed to next level
-class EndPlatform(Platform):
-    def __init__(self, x, y, path, width=0, height=0):
-        super(EndPlatform, self).__init__(x, y, path, width, height)
-        self.image = pygame.image.load(os.path.join('sprites', path)).convert_alpha()
-        platforma = pygame.Surface((width, height))
+class EndPlatform(pygame.sprite.Sprite):
+    def __init__(self, x, y, width=0, height=0):
+        super(EndPlatform, self).__init__()
+        self.image = pygame.image.load(os.path.join('sprites', 'flag.png')).convert_alpha()
+        flag = pygame.Surface((width, height))
 
-        platforma.blit(self.image, (x, y))
+        flag.blit(self.image, (x, y))
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
 
 # kill player sprite when collision detected
-class Spikes(Platform):
+class Spikes(pygame.sprite.Sprite):
     def __init__(self, x, y, path, width=0, height=0):
-        super(Spikes, self).__init__(x, y, path, width, height)
+        super(Spikes, self).__init__()
         self.image = pygame.image.load(os.path.join('sprites', path)).convert_alpha()
-        platforma = pygame.Surface((width, height))
+        spikes = pygame.Surface((width, height))
 
-        platforma.blit(self.image, (x, y))
+        spikes.blit(self.image, (x, y))
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
