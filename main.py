@@ -212,9 +212,7 @@ class Game:
         pygame.display.update()
 
     def level1(self):
-
-        # self.KONIEC = EndPlatform(1900, 200, 'flag.png')
-        self.KONIEC = EndPlatform(500, SCREEN_HEIGHT-150, 'flag.png')
+        self.KONIEC = EndPlatform(1900, 201, 'flag.png')
 
 
         self.left_wall = Platform(-16, 0, 'sciana.png')
@@ -314,7 +312,7 @@ class Game:
             self.screen.fill(BLACK)
 
             # displays text to screen
-            self.message_to_screen("Progress: 28.05.2020", RED, -100, "large")
+            self.message_to_screen("VIGILANT PANCAKE", RED, -100, "large")
             self.message_to_screen("Move and jump on platforms", RED, -30, "small")
 
             # dummy buttons
@@ -343,8 +341,11 @@ class Game:
                     quit()
 
             self.screen.fill(BLACK)
-            self.message_to_screen("Controls", RED, -100, "large")
+            self.message_to_screen("How to play?", RED, -100, "large")
             self.message_to_screen("Move left: 'A'  Move Right: 'D'  Jump: 'Space'", RED, -30, "small")
+            self.message_to_screen("Golden coins give you 5 points", RED, -10, "small")
+            self.message_to_screen("Silver coins give you 1 point", RED, 10, "small")
+            self.message_to_screen("Cookies give you jump boost", RED, 30, "small")
 
             # dummy buttons
             self.dummybutton("PLAY", 200, 500, 100, 50, RED)
@@ -370,7 +371,6 @@ class Game:
                     self.running = False
                     pygame.quit()
                     quit()
-
 
             self.screen.fill(BLACK)
             self.message_to_screen("YOU DIED", RED, -100, "large")
@@ -433,7 +433,7 @@ class Game:
                             self.controls_menu()
                         # starts game and ends game intro
                         elif action == "play":
-                            self.new_game()
+                            self.new_game()              
                         # takes you to main menu
                         elif action == "main":
                             self.new_game_menu()
