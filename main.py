@@ -271,8 +271,7 @@ class Game:
 
     def level1(self):
 
-        # self.KONIEC = EndPlatform(1900, 200, 'flag.png')
-        self.KONIEC = EndPlatform(500, SCREEN_HEIGHT - 200)
+        self.KONIEC = EndPlatform(1900, 200)
         self.KONIEC1 = EndPlatform(1500, SCREEN_HEIGHT - 332)
 
         self.left_wall = Platform(-16, 0, 'sciana.png')
