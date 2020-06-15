@@ -139,6 +139,29 @@ class Game:
             self.player.kill()
             game.game_over_menu()
 
+        if self.player.rect.bottom >= self.spikes4.rect.top and self.player.rect.right >= self.spikes4.rect.left and self.player.rect.left <= self.spikes4.rect.right:
+            self.hit_sound.play()
+            self.player.kill()
+            game.game_over_menu()
+
+        if self.player.rect.bottom >= self.spikes5.rect.top and self.player.rect.right >= self.spikes5.rect.left and self.player.rect.left <= self.spikes5.rect.right:
+            self.hit_sound.play()
+            self.player.kill()
+            game.game_over_menu()
+
+        if self.player.rect.bottom >= self.spikes6.rect.top and self.player.rect.right >= self.spikes6.rect.left and \
+                self.player.rect.left <= self.spikes6.rect.right and self.player.rect.top <= self.spikes6.rect.bottom:
+            self.hit_sound.play()
+            self.player.kill()
+            game.game_over_menu()
+
+        if self.player.rect.bottom >= self.spikes7.rect.top and self.player.rect.right >= self.spikes7.rect.left and \
+                self.player.rect.left <= self.spikes7.rect.right and self.player.rect.top <= self.spikes7.rect.bottom:
+            self.hit_sound.play()
+            self.player.kill()
+            game.game_over_menu()
+
+
         # go to level 2 when flag touched
         if self.player.rect.right >= self.KONIEC.rect.left and self.player.rect.bottom >= self.KONIEC.rect.top and \
                 self.player.rect.left <= self.KONIEC.rect.right and self.player.rect.top <= self.KONIEC.rect.bottom:
@@ -174,6 +197,23 @@ class Game:
 
             # level2
             self.level2()
+
+        # level2 completed
+        if self.player.rect.right >= self.KONIEC1.rect.left and self.player.rect.bottom >= self.KONIEC1.rect.top and \
+                self.player.rect.left <= self.KONIEC1.rect.right and self.player.rect.top <= self.KONIEC1.rect.bottom:
+            self.screen.fill(BLACK)
+            self.message_to_screen("CONGRATULATIONS", RED, -100, "large")
+            self.message_to_screen("You have completed level 2", RED, 0, "med")
+            self.message_to_screen("Your final score was: {} points ".format(self.point_counter), RED, 100, "med")
+            self.message_to_screen("THANK YOU FOR PLAYING!!!", RED, 250, "large")
+            pygame.display.update()
+
+            pygame.time.wait(2000)
+
+            self.playing = False
+            self.running = False
+            pygame.quit()
+            quit()
 
     # in-game events
     def handle_events(self):
@@ -233,6 +273,7 @@ class Game:
 
         # self.KONIEC = EndPlatform(1900, 200, 'flag.png')
         self.KONIEC = EndPlatform(500, SCREEN_HEIGHT - 200)
+        self.KONIEC1 = EndPlatform(1500, SCREEN_HEIGHT - 332)
 
         self.left_wall = Platform(-16, 0, 'sciana.png')
         self.right_wall = Platform(2087, 0, 'sciana.png')
@@ -266,6 +307,10 @@ class Game:
         self.platform15 = Platform(1300, SCREEN_HEIGHT - 150, 'hor_platform.png')
         self.spikes2 = Spikes(1830, SCREEN_HEIGHT - 64, 'spikes_short.png')
         self.spikes3 = Spikes(1959, SCREEN_HEIGHT - 64, 'spikes_short.png')
+        self.spikes4 = Spikes(1959, SCREEN_HEIGHT - 64, 'spikes_short.png')
+        self.spikes5 = Spikes(1959, SCREEN_HEIGHT - 64, 'spikes_short.png')
+        self.spikes6 = Spikes(1959, SCREEN_HEIGHT - 64, 'spikes_short.png')
+        self.spikes7 = Spikes(1959, SCREEN_HEIGHT - 64, 'spikes_short.png')
 
         # koncowa platforma
         self.platform_end = Platform(1800, 232, 'hor_platform.png')
@@ -307,41 +352,79 @@ class Game:
 
     def level2(self):
 
+        self.KONIEC1 = EndPlatform(1500, SCREEN_HEIGHT - 332)
+
         # create new level
         self.left_wall = Platform(-16, 0, 'sciana.png')
+        self.right_wall = Platform(1590, 0, 'sciana.png')
 
         self.ground = Platform(-16, SCREEN_HEIGHT - 32, 'podloga.png')
         self.ground1 = Platform(580, SCREEN_HEIGHT - 32, 'podloga.png')
+        self.ground2 = Platform(1000, SCREEN_HEIGHT - 32, 'podloga.png')
 
         self.spikes1 = Spikes(0, SCREEN_HEIGHT - 64, 'spikes_short.png')
+        self.spikes2 = Spikes(400, SCREEN_HEIGHT - 64, 'spikes_short.png')
+        self.spikes3 = Spikes(700, SCREEN_HEIGHT - 64, 'spikes_short.png')
+        self.spikes4 = Spikes(900, SCREEN_HEIGHT - 64, 'spikes_short.png')
+        self.spikes5 = Spikes(1100, SCREEN_HEIGHT - 64, 'spikes_short.png')
+        self.spikes6 = Spikes(800, SCREEN_HEIGHT - 332, 'spikes_short.png')
+        self.spikes7 = Spikes(925, SCREEN_HEIGHT - 332, 'spikes_short.png')
 
         self.platform20 = Platform(120, SCREEN_HEIGHT - 172, 'hor_platform.png')
         self.platform21 = Platform(120, SCREEN_HEIGHT - 312, 'hor_platform.png')
         self.platform22 = Platform(260, SCREEN_HEIGHT - 312, 'hor_platform.png')
         self.platform23 = Platform(230, SCREEN_HEIGHT - 455, 'hor_platform.png')
         self.platform24 = Platform(0, SCREEN_HEIGHT - 455, 'hor_platform_short.png')
+        self.platform25 = Platform(580, SCREEN_HEIGHT - 300, 'hor_platform.png')
+        self.platform26 = Platform(740, SCREEN_HEIGHT - 300, 'hor_platform.png')
+        self.platform27 = Platform(900, SCREEN_HEIGHT - 300, 'hor_platform.png')
+        self.platform28 = Platform(1060, SCREEN_HEIGHT - 300, 'hor_platform.png')
+        self.platform29 = Platform(1432, SCREEN_HEIGHT - 300, 'hor_platform.png')
 
         self.wall1 = Platform(400, SCREEN_HEIGHT - 312, 'sciana_mala.png')
         self.wall2 = Platform(400, SCREEN_HEIGHT - 140, 'sciana_mala.png')
         self.wall3 = Platform(230, SCREEN_HEIGHT - 455, 'sciana_mala.png')
+        self.wall4 = Platform(580, SCREEN_HEIGHT - 300, 'sciana_mala.png')
+        self.wall5 = Platform(580, SCREEN_HEIGHT - 900, 'sciana.png')
+        self.wall6 = Platform(1400, SCREEN_HEIGHT - 300, 'sciana_mala.png')
+        self.wall7 = Platform(1400, SCREEN_HEIGHT - 140, 'sciana_mala.png')
 
         self.silver_point1 = SilverPoints(140, SCREEN_HEIGHT - 200)
-        self.golden_point1 = GoldPoints(40, SCREEN_HEIGHT - 483)
+        self.silver_point2 = SilverPoints(270, SCREEN_HEIGHT - 350)
+        self.silver_point3 = SilverPoints(270, SCREEN_HEIGHT - 380)
+        self.silver_point4 = SilverPoints(740, SCREEN_HEIGHT - 180)
+        self.silver_point5 = SilverPoints(940, SCREEN_HEIGHT - 180)
+        self.silver_point6 = SilverPoints(1140, SCREEN_HEIGHT - 180)
 
-        self.all_sprites.add(self.spikes1, self.platform20, self.wall3, self.platform21, self.platform22, self.platform23,
-                             self.platform24,
-                             self.silver_point1,
-                             self.golden_point1,
-                             self.left_wall, self.wall1, self.wall2,
-                             self.ground, self.ground1)
-        self.platforms.add(self.spikes1,
+        self.golden_point1 = GoldPoints(40, SCREEN_HEIGHT - 483)
+        self.golden_point2 = GoldPoints(40, SCREEN_HEIGHT - 90)
+        self.golden_point3 = GoldPoints(630, SCREEN_HEIGHT - 332)
+        self.golden_point4 = GoldPoints(670, SCREEN_HEIGHT - 332)
+
+        self.cookie1 = BoostPoint(1350, SCREEN_HEIGHT - 200)
+
+        self.all_sprites.add(self.spikes1, self.spikes2, self.spikes3, self.spikes4, self.spikes5, self.spikes6,
+                             self.spikes7,
+                             self.platform20, self.wall3, self.platform21, self.platform22, self.platform23,
+                             self.platform24, self.platform25, self.platform26, self.platform27, self.platform28,
+                             self.platform29,
+                             self.silver_point1, self.silver_point2, self.silver_point3, self.silver_point4,
+                             self.silver_point5, self.silver_point6,
+                             self.golden_point1, self.golden_point2, self.golden_point3, self.golden_point4,
+                             self.cookie1,
+                             self.left_wall, self.wall1, self.wall2, self.wall4, self.wall5, self.wall6,
+                             self.wall7, self.ground, self.ground1, self.ground2, self.KONIEC1, self.right_wall)
+        self.platforms.add(self.spikes1, self.spikes2, self.spikes3, self.spikes4, self.spikes5, self.spikes6,
+                           self.spikes7,
                            self.platform20, self.wall3, self.platform21, self.platform22, self.platform23,
-                           self.platform24,
-                           self.left_wall, self.wall1, self.wall2,
-                           self.ground, self.ground1)
-        self.points_list.add(self.silver_point1,
-                             self.golden_point1)
-        self.boosts_list.add()
+                           self.platform24, self.platform25, self.platform26, self.platform27, self.platform28,
+                           self.platform29,
+                           self.left_wall, self.wall1, self.wall2, self.wall4, self.wall5, self.wall6,
+                           self.wall7, self.ground, self.ground1, self.ground2, self.KONIEC1, self.right_wall)
+        self.points_list.add(self.silver_point1, self.silver_point2, self.silver_point3, self.silver_point4,
+                             self.silver_point5, self.silver_point6,
+                             self.golden_point1, self.golden_point2, self.golden_point3, self.golden_point4,)
+        self.boosts_list.add(self.cookie1)
 
     # start game screen
     def new_game_menu(self, new_game=True):
