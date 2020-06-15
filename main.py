@@ -29,6 +29,7 @@ class Game:
         self.devs = False
 
         self.multiplier = multiplier
+        self.deaths = 0
 
         self.jump_sound = pygame.mixer.Sound(os.path.join('sounds', 'Jump2.wav'))
         self.hit_sound = pygame.mixer.Sound(os.path.join('sounds', 'Hit_Hurt.wav'))
@@ -127,38 +128,45 @@ class Game:
         if self.player.rect.bottom >= self.spikes1.rect.top and self.player.rect.right >= self.spikes1.rect.left and self.player.rect.left <= self.spikes1.rect.right:
             self.hit_sound.play()
             self.player.kill()
+            self.deaths += 1
             game.game_over_menu()
 
         if self.player.rect.bottom >= self.spikes2.rect.top and self.player.rect.right >= self.spikes2.rect.left and self.player.rect.left <= self.spikes2.rect.right:
             self.hit_sound.play()
             self.player.kill()
+            self.deaths += 1
             game.game_over_menu()
 
         if self.player.rect.bottom >= self.spikes3.rect.top and self.player.rect.right >= self.spikes3.rect.left and self.player.rect.left <= self.spikes3.rect.right:
             self.hit_sound.play()
             self.player.kill()
+            self.deaths += 1
             game.game_over_menu()
 
         if self.player.rect.bottom >= self.spikes4.rect.top and self.player.rect.right >= self.spikes4.rect.left and self.player.rect.left <= self.spikes4.rect.right:
             self.hit_sound.play()
             self.player.kill()
+            self.deaths += 1
             game.game_over_menu()
 
         if self.player.rect.bottom >= self.spikes5.rect.top and self.player.rect.right >= self.spikes5.rect.left and self.player.rect.left <= self.spikes5.rect.right:
             self.hit_sound.play()
             self.player.kill()
+            self.deaths += 1
             game.game_over_menu()
 
         if self.player.rect.bottom >= self.spikes6.rect.top and self.player.rect.right >= self.spikes6.rect.left and \
                 self.player.rect.left <= self.spikes6.rect.right and self.player.rect.top <= self.spikes6.rect.bottom:
             self.hit_sound.play()
             self.player.kill()
+            self.deaths += 1
             game.game_over_menu()
 
         if self.player.rect.bottom >= self.spikes7.rect.top and self.player.rect.right >= self.spikes7.rect.left and \
                 self.player.rect.left <= self.spikes7.rect.right and self.player.rect.top <= self.spikes7.rect.bottom:
             self.hit_sound.play()
             self.player.kill()
+            self.deaths += 1
             game.game_over_menu()
 
 
@@ -169,14 +177,14 @@ class Game:
             self.player.rect.bottom = SCREEN_HEIGHT - 50
 
             # deleting level 1 platforms
-            self.all_sprites.remove(self.KONIEC, self.spikes1, self.spikes2, self.spikes3, self.platform44, self.left_wall,
+            self.all_sprites.remove(self.KONIEC, self.KONIEC1, self.spikes1, self.spikes2, self.spikes3, self.platform44, self.left_wall,
                              self.right_wall, self.platform1, self.platform2, self.platform3, self.platform4,
                              self.platform6, self.platform7, self.platform8, self.platform9, self.platform10, self.platform11, self.platform12,
                              self.platform13, self.platform14, self.platform15, self.platform_end, self.platform5,
                              self.ground, self.ground1, self.ground2, self.ground3, self.golden_point1, self.golden_point2,
                              self.golden_point3, self.golden_point4, self.golden_point5, self.golden_point6,
                              self.golden_point7, self.golden_point8, self.silver_point1, self.silver_point2, self.cookie1)
-            self.platforms.remove(self.KONIEC, self.spikes1, self.spikes2, self.spikes3, self.platform44, self.left_wall, self.right_wall,
+            self.platforms.remove(self.KONIEC, self.KONIEC1, self.spikes1, self.spikes2, self.spikes3, self.platform44, self.left_wall, self.right_wall,
                            self.platform1, self.platform2, self.platform3, self.platform4, self.platform6,
                            self.platform7, self.platform8, self.platform9, self.platform10, self.platform11, self.platform12,
                            self.platform13, self.platform14, self.platform15, self.platform_end, self.platform5,
@@ -202,9 +210,10 @@ class Game:
         if self.player.rect.right >= self.KONIEC1.rect.left and self.player.rect.bottom >= self.KONIEC1.rect.top and \
                 self.player.rect.left <= self.KONIEC1.rect.right and self.player.rect.top <= self.KONIEC1.rect.bottom:
             self.screen.fill(BLACK)
-            self.message_to_screen("CONGRATULATIONS", RED, -100, "large")
-            self.message_to_screen("You have completed level 2", RED, 0, "med")
-            self.message_to_screen("Your final score was: {} points ".format(self.point_counter), RED, 100, "med")
+            self.message_to_screen("CONGRATULATIONS", RED, -150, "large")
+            self.message_to_screen("You have completed level 2", RED, -50, "med")
+            self.message_to_screen("Your final score was: {} points ".format(self.point_counter), RED, 50, "med")
+            self.message_to_screen("Your died {} times ".format(self.deaths), RED, 100, "med")
             self.message_to_screen("THANK YOU FOR PLAYING!!!", RED, 250, "large")
             pygame.display.update()
 
@@ -265,14 +274,15 @@ class Game:
 
         # text with your points
         self.screen.blit(smallfont.render('Your points: {0}'.format(self.point_counter), True, WHITE), (SCREEN_WIDTH - 210, 30))
+        self.screen.blit(smallfont.render('Your deaths: {0}'.format(self.deaths), True, WHITE), (SCREEN_WIDTH - 210, 60))
 
         # updates contents of the screen
         pygame.display.update()
 
     def level1(self):
 
-        self.KONIEC = EndPlatform(1900, 200)
-        self.KONIEC1 = EndPlatform(1500, SCREEN_HEIGHT - 332)
+        self.KONIEC = EndPlatform(2000, 50)
+        self.KONIEC1 = EndPlatform(3000, SCREEN_HEIGHT - 332)
 
         self.left_wall = Platform(-16, 0, 'sciana.png')
         self.right_wall = Platform(2087, 0, 'sciana.png')
@@ -312,7 +322,7 @@ class Game:
         self.spikes7 = Spikes(1959, SCREEN_HEIGHT - 64, 'spikes_short.png')
 
         # koncowa platforma
-        self.platform_end = Platform(1800, 232, 'hor_platform.png')
+        self.platform_end = Platform(1900, 264, 'hor_platform.png')
 
         self.golden_point1 = GoldPoints(300, SCREEN_HEIGHT - 160)
         self.golden_point2 = GoldPoints(50, SCREEN_HEIGHT - 500)
@@ -325,7 +335,7 @@ class Game:
         self.silver_point1 = SilverPoints(250, SCREEN_HEIGHT - 180)
         self.silver_point2 = SilverPoints(1050, SCREEN_HEIGHT - 400)
 
-        self.cookie1 = BoostPoint(200, SCREEN_HEIGHT - 150)
+        self.cookie1 = BoostPoint(1800, SCREEN_HEIGHT - 150)
 
         self.all_sprites.add(self.KONIEC, self.spikes1, self.spikes2, self.spikes3,
                              self.platform44, self.left_wall, self.right_wall,
@@ -362,7 +372,7 @@ class Game:
         self.ground2 = Platform(1000, SCREEN_HEIGHT - 32, 'podloga.png')
 
         self.spikes1 = Spikes(0, SCREEN_HEIGHT - 64, 'spikes_short.png')
-        self.spikes2 = Spikes(400, SCREEN_HEIGHT - 64, 'spikes_short.png')
+        self.spikes2 = Spikes(410, SCREEN_HEIGHT - 64, 'spikes_short.png')
         self.spikes3 = Spikes(700, SCREEN_HEIGHT - 64, 'spikes_short.png')
         self.spikes4 = Spikes(900, SCREEN_HEIGHT - 64, 'spikes_short.png')
         self.spikes5 = Spikes(1100, SCREEN_HEIGHT - 64, 'spikes_short.png')
