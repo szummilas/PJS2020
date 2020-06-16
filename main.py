@@ -51,6 +51,10 @@ class Game:
         self.points_list = pygame.sprite.Group()
         self.boosts_list = pygame.sprite.Group()
 
+        self.timer = Timer()
+        self.timer.start()
+        self.play_time = 0
+
         self.level1()
 
         self.run_game()
@@ -128,30 +132,35 @@ class Game:
         if self.player.rect.bottom >= self.spikes1.rect.top and self.player.rect.right >= self.spikes1.rect.left and self.player.rect.left <= self.spikes1.rect.right:
             self.hit_sound.play()
             self.player.kill()
+            self.play_time = self.timer.current()
             self.deaths += 1
             game.game_over_menu()
 
         if self.player.rect.bottom >= self.spikes2.rect.top and self.player.rect.right >= self.spikes2.rect.left and self.player.rect.left <= self.spikes2.rect.right:
             self.hit_sound.play()
             self.player.kill()
+            self.play_time = self.timer.current()
             self.deaths += 1
             game.game_over_menu()
 
         if self.player.rect.bottom >= self.spikes3.rect.top and self.player.rect.right >= self.spikes3.rect.left and self.player.rect.left <= self.spikes3.rect.right:
             self.hit_sound.play()
             self.player.kill()
+            self.play_time = self.timer.current()
             self.deaths += 1
             game.game_over_menu()
 
         if self.player.rect.bottom >= self.spikes4.rect.top and self.player.rect.right >= self.spikes4.rect.left and self.player.rect.left <= self.spikes4.rect.right:
             self.hit_sound.play()
             self.player.kill()
+            self.play_time = self.timer.current()
             self.deaths += 1
             game.game_over_menu()
 
         if self.player.rect.bottom >= self.spikes5.rect.top and self.player.rect.right >= self.spikes5.rect.left and self.player.rect.left <= self.spikes5.rect.right:
             self.hit_sound.play()
             self.player.kill()
+            self.play_time = self.timer.current()
             self.deaths += 1
             game.game_over_menu()
 
@@ -159,6 +168,7 @@ class Game:
                 self.player.rect.left <= self.spikes6.rect.right and self.player.rect.top <= self.spikes6.rect.bottom:
             self.hit_sound.play()
             self.player.kill()
+            self.play_time = self.timer.current()
             self.deaths += 1
             game.game_over_menu()
 
@@ -166,6 +176,7 @@ class Game:
                 self.player.rect.left <= self.spikes7.rect.right and self.player.rect.top <= self.spikes7.rect.bottom:
             self.hit_sound.play()
             self.player.kill()
+            self.play_time = self.timer.current()
             self.deaths += 1
             game.game_over_menu()
 
@@ -209,15 +220,17 @@ class Game:
         # level2 completed
         if self.player.rect.right >= self.KONIEC1.rect.left and self.player.rect.bottom >= self.KONIEC1.rect.top and \
                 self.player.rect.left <= self.KONIEC1.rect.right and self.player.rect.top <= self.KONIEC1.rect.bottom:
+            self.play_time = self.timer.current()
             self.screen.fill(BLACK)
             self.message_to_screen("CONGRATULATIONS", RED, -150, "large")
             self.message_to_screen("You have completed level 2", RED, -50, "med")
             self.message_to_screen("Your final score was: {} points ".format(self.point_counter), RED, 50, "med")
-            self.message_to_screen("Your died {} times ".format(self.deaths), RED, 100, "med")
-            self.message_to_screen("THANK YOU FOR PLAYING!!!", RED, 250, "large")
+            self.message_to_screen("You've died {} times ".format(self.deaths), RED, 100, "med")
+            self.message_to_screen("Your time {} s. ".format(self.play_time), RED, 150, "med")
+            self.message_to_screen("THANK YOU FOR PLAYING!!!", RED, 250, "med")
             pygame.display.update()
 
-            pygame.time.wait(2000)
+            pygame.time.wait(10000)
 
             self.playing = False
             self.running = False
@@ -273,8 +286,14 @@ class Game:
         self.all_sprites.draw(self.screen)
 
         # text with your points
+        self.backg = pygame.Surface((190, 90))
+        self.backg.fill((128, 128, 128))
+        self.backg.set_alpha(100)
+        self.screen.blit(self.backg, (SCREEN_WIDTH - 220, 20))
+
         self.screen.blit(smallfont.render('Your points: {0}'.format(self.point_counter), True, WHITE), (SCREEN_WIDTH - 210, 30))
         self.screen.blit(smallfont.render('Your deaths: {0}'.format(self.deaths), True, WHITE), (SCREEN_WIDTH - 210, 60))
+        self.screen.blit(smallfont.render('Your time: {0}'.format(self.timer.current()), True, WHITE),(SCREEN_WIDTH - 210, 90))
 
         # updates contents of the screen
         pygame.display.update()
