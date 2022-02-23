@@ -8,19 +8,19 @@ Po uzgodnieniu z prowadzącym, kontunuujemy projekt wspólnie.
 Stan gry na ten moment:
  24.04.2020 
  
--Menu z interaktywnymi przyciskami.
--Poruszająca się postać gracza, może skakać
--Kolizja od góry z platformami, po których porusza się gracz
+- Menu z interaktywnymi przyciskami.
+- Poruszająca się postać gracza, może skakać
+- Kolizja od góry z platformami, po których porusza się gracz
 
  12.05.2020 
  
--Kolizje z platformami ze wszystkich stron
--Przesuwanie się planszy
+- Kolizje z platformami ze wszystkich stron
+- Przesuwanie się planszy
 
  14.05.2020 
  
--"Narzędzia developerskie" dostępne pod przyciskiem "K"
--Przejście z poziomu 1 na 2 po wejściu na górną platformę
+- "Narzędzia developerskie" dostępne pod przyciskiem "K"
+- Przejście z poziomu 1 na 2 po wejściu na górną platformę
 
  28.05.2020 
  
