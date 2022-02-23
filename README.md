@@ -3,9 +3,13 @@ Hubert Dziedziura & Michał Szul
 
 
 Progress 24.04.2020
+
 Po uzgodnieniu z prowadzącym, kontunuujemy projekt wspólnie. 
 
+--- 
+
 Stan gry na ten moment:
+
  24.04.2020 
  
 - Menu z interaktywnymi przyciskami.
